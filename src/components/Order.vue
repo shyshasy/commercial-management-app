@@ -1,76 +1,60 @@
 <template>
-    <div class="container mt-3">
-      <h2>Orders</h2>
-      <button class="btn btn-primary mb-3" @click="addOrder">Add New</button>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Customer</th>
-            <th>Delivery Address</th>
-            <th>Track Number</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="order in orders" :key="order.id">
-            <td>{{ order.date }}</td>
-            <td>{{ order.customer }}</td>
-            <td>{{ order.deliveryAddress }}</td>
-            <td>{{ order.trackNumber }}</td>
-            <td>{{ order.status }}</td>
-            <td>
-              <button class="btn btn-warning btn-sm" @click="editOrder(order)">Edit</button>
-              <button class="btn btn-danger btn-sm" @click="deleteOrder(order.id)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <OrderDetail :orderId="selectedOrderId" v-if="selectedOrderId"/>
+    <div>
+      <h2>Gestion des Commandes</h2>
+      <!-- Formulaire pour ajouter/modifier une commande -->
+      <div class="mb-3">
+        <input v-model="newOrder.date" class="form-control" placeholder="Date">
+        <input v-model="newOrder.customer" class="form-control mt-2" placeholder="Client">
+        <input v-model="newOrder.deliveryAddress" class="form-control mt-2" placeholder="Adresse de Livraison">
+        <input v-model="newOrder.trackNumber" class="form-control mt-2" placeholder="Numéro de Suivi">
+        <input v-model="newOrder.status" class="form-control mt-2" placeholder="État">
+        <button @click="addOrder" class="btn btn-primary mt-3">Ajouter Commande</button>
+      </div>
+      <!-- Liste des commandes -->
+      <ul class="list-group">
+        <li v-for="order in orders" :key="order.id" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ order.date }} - {{ order.customer }}</span>
+          <router-link :to="{ name: 'OrderDetail', params: { id: order.id } }" class="btn btn-info btn-sm">Détails</router-link>
+          <button @click="editOrder(order)" class="btn btn-secondary btn-sm">Modifier</button>
+          <button @click="removeOrder(order.id)" class="btn btn-danger btn-sm">Supprimer</button>
+        </li>
+      </ul>
     </div>
   </template>
   
   <script>
-  import OrderDetail from './OrderDetail.vue'
-  
   export default {
-    components: {
-      OrderDetail
-    },
     data() {
       return {
-        orders: [],
-        selectedOrderId: null
+        newOrder: {
+          date: '',
+          customer: '',
+          deliveryAddress: '',
+          trackNumber: '',
+          status: ''
+        },
+        orders: []
       }
     },
     methods: {
       addOrder() {
-        // Logic to add a new order
+        // Ajouter une commande (dummy logic)
+        this.orders.push({ ...this.newOrder, id: Date.now() });
+        this.newOrder = { date: '', customer: '', deliveryAddress: '', trackNumber: '', status: '' };
       },
       editOrder(order) {
-        this.selectedOrderId = order.id;
-        // Logic to edit an order
+        // Modifier une commande (dummy logic)
+        alert(`Modifier la commande ${order.id}`);
       },
-      deleteOrder(id) {
-        // Logic to delete an order
+      removeOrder(id) {
+        // Supprimer une commande (dummy logic)
+        this.orders = this.orders.filter(order => order.id !== id);
       }
     }
   }
   </script>
   
   <style scoped>
-  /* Parisian chic styling */
-  .container {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-  }
-  .table th, .table td {
-    text-align: center;
-  }
-  .btn {
-    margin-right: 5px;
-  }
+  /* Styles pour le composant Order */
   </style>
   

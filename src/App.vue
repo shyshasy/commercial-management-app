@@ -1,9 +1,31 @@
 <template>
-  <div id="app">
-    <div class="container mt-3">
-      <h1>ABC Corporation Management System</h1>
-      <router-view/>
-    </div>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <router-link class="navbar-brand" to="/">ABC Corporation</router-link>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <router-link class="nav-link" to="/customers">Clients</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/products">Produits</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/orders">Commandes</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/payments">Paiements</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <router-view></router-view>
   </div>
 </template>
 
@@ -14,15 +36,17 @@ export default {
 </script>
 
 <style>
-/* Parisian chic styling */
-#app {
-  font-family: 'Arial', sans-serif;
-  color: #333;
-  background-color: #e9ecef;
-  min-height: 100vh;
-  padding: 20px;
+/* Un peu de style chic */
+.navbar {
+  background-color: #f8f9fa;
 }
-.container {
-  border-radius: 8px;
+
+.nav-link {
+  font-weight: bold;
+  color: #333;
+}
+
+.nav-link:hover {
+  color: #007bff;
 }
 </style>

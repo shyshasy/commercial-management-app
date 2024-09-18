@@ -1,36 +1,25 @@
 <template>
-    <div class="container mt-3">
-      <h2>Products</h2>
-      <button class="btn btn-primary mb-3" @click="addProduct">Add New</button>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Product Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Category</th>
-            <th>Barcode</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="product in products" :key="product.id">
-            <td>{{ product.name }}</td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.stock }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.barcode }}</td>
-            <td>{{ product.status }}</td>
-            <td>
-              <button class="btn btn-warning btn-sm" @click="editProduct(product)">Edit</button>
-              <button class="btn btn-danger btn-sm" @click="deleteProduct(product.id)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div>
+      <h2>Gestion des Produits</h2>
+      <!-- Formulaire pour ajouter/modifier un produit -->
+      <div class="mb-3">
+        <input v-model="newProduct.name" class="form-control" placeholder="Nom du produit">
+        <input v-model="newProduct.description" class="form-control mt-2" placeholder="Description">
+        <input v-model="newProduct.price" class="form-control mt-2" placeholder="Prix">
+        <input v-model="newProduct.stock" class="form-control mt-2" placeholder="Stock">
+        <input v-model="newProduct.category" class="form-control mt-2" placeholder="Catégorie">
+        <input v-model="newProduct.barcode" class="form-control mt-2" placeholder="Code-barres">
+        <input v-model="newProduct.status" class="form-control mt-2" placeholder="État">
+        <button @click="addProduct" class="btn btn-primary mt-3">Ajouter Produit</button>
+      </div>
+      <!-- Liste des produits -->
+      <ul class="list-group">
+        <li v-for="product in products" :key="product.id" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ product.name }}</span>
+          <button @click="editProduct(product)" class="btn btn-secondary btn-sm">Modifier</button>
+          <button @click="removeProduct(product.id)" class="btn btn-danger btn-sm">Supprimer</button>
+        </li>
+      </ul>
     </div>
   </template>
   
@@ -38,35 +27,37 @@
   export default {
     data() {
       return {
+        newProduct: {
+          name: '',
+          description: '',
+          price: '',
+          stock: '',
+          category: '',
+          barcode: '',
+          status: ''
+        },
         products: []
       }
     },
     methods: {
       addProduct() {
-        // Logic to add a new product
+        // Ajouter un produit (dummy logic)
+        this.products.push({ ...this.newProduct, id: Date.now() });
+        this.newProduct = { name: '', description: '', price: '', stock: '', category: '', barcode: '', status: '' };
       },
       editProduct(product) {
-        // Logic to edit a product
+        // Modifier un produit (dummy logic)
+        alert(`Modifier le produit ${product.name}`);
       },
-      deleteProduct(id) {
-        // Logic to delete a product
+      removeProduct(id) {
+        // Supprimer un produit (dummy logic)
+        this.products = this.products.filter(product => product.id !== id);
       }
     }
   }
   </script>
   
   <style scoped>
-  /* Parisian chic styling */
-  .container {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-  }
-  .table th, .table td {
-    text-align: center;
-  }
-  .btn {
-    margin-right: 5px;
-  }
+  /* Styles pour le composant Product */
   </style>
   

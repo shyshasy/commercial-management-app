@@ -1,19 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-route'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import Home from '../components/Home.vue'
 import Customer from '../components/Customer.vue'
 import Product from '../components/Product.vue'
 import Order from '../components/Order.vue'
+import OrderDetail from '../components/OrderDetail.vue'
+import Payment from '../components/Payment.vue'  // Importer le composant Payment
 
 const routes = [
   { path: '/', component: Home },
   { path: '/customers', component: Customer },
   { path: '/products', component: Product },
   { path: '/orders', component: Order },
+  { path: '/orders/:id', name: 'OrderDetail', component: OrderDetail, props: true },
+  { path: '/payments', component: Payment }  // Ajouter la route pour les paiements
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 })
 
 export default router
