@@ -9,16 +9,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link" to="/customers">Clients</router-link>
+              <router-link class="nav-link" to="/customers">Customer</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/products">Produits</router-link>
+              <router-link class="nav-link" to="/products">Product</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/orders">Commandes</router-link>
+              <router-link class="nav-link" to="/orders">Order</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/payments">Paiements</router-link>
+              <router-link class="nav-link" to="/payments">Payment</router-link>
             </li>
           </ul>
         </div>
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style>
-/* Un peu de style chic */
+/* Some chic styling */
 .navbar {
   background-color: #f8f9fa;
 }
