@@ -12,7 +12,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="paymentModalLabel">{{ isEditing ? 'Modifier Paiement' : 'Ajouter Paiement' }}</h5>
+              <h5 class="modal-title" id="paymentModalLabel">{{ isEditing.value ? 'Modifier Paiement' : 'Ajouter Paiement' }}</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -30,8 +30,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-              <button @click="isEditing ? updatePayment() : addPayment()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                <i class="fas fa-save"></i> {{ isEditing ? 'Modifier' : 'Ajouter' }} Paiement
+              <button @click="isEditing.value ? updatePayment() : addPayment()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                <i class="fas fa-save"></i> {{ isEditing.value ? 'Modifier' : 'Ajouter' }} Paiement
               </button>
             </div>
           </div>
@@ -103,58 +103,54 @@
     </div>
   </template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        newPayment: {
-          date: '',
-          amount: '',
-          method: '',
-          orderId: ''
-        },
-        currentPayment: {
-          date: '',
-          amount: '',
-          method: '',
-          orderId: ''
-        },
-        payments: [],
-        isEditing: false // Flag pour vérifier si on modifie ou ajoute
-      };
-    },
-    methods: {
-      addPayment() {
-        // Ajouter un paiement et réinitialiser le formulaire
-        if (this.newPayment.date && this.newPayment.amount && this.newPayment.method && this.newPayment.orderId) {
-          this.payments.push({ ...this.newPayment, id: Date.now() });
-          this.newPayment = { date: '', amount: '', method: '', orderId: '' };
-        }
-      },
-      editPayment(payment) {
-        // Pré-remplir les champs pour la modification
-        this.isEditing = true;
-        this.newPayment = { ...payment };
-      },
-      updatePayment() {
-        // Mettre à jour un paiement
-        const paymentIndex = this.payments.findIndex(p => p.id === this.newPayment.id);
-        if (paymentIndex !== -1) {
-          this.payments.splice(paymentIndex, 1, { ...this.newPayment });
-        }
-        this.isEditing = false;
-        this.newPayment = { date: '', amount: '', method: '', orderId: '' };
-      },
-      listPayment(payment) {
-        // Afficher les détails d'un paiement dans une modal de visualisation
-        this.currentPayment = { ...payment };
-      },
-      removePayment(id) {
-        // Logic de suppression
-        this.payments = this.payments.filter(payment => payment.id !== id);
-      }
+  <script setup>
+  import { ref } from 'vue';
+  
+  const newPayment = ref({
+    date: '',
+    amount: '',
+    method: '',
+    orderId: ''
+  });
+  
+  const currentPayment = ref({
+    date: '',
+    amount: '',
+    method: '',
+    orderId: ''
+  });
+  
+  const payments = ref([]);
+  const isEditing = ref(false); // Flag pour vérifier si on modifie ou ajoute
+  
+  function addPayment() {
+    if (newPayment.value.date && newPayment.value.amount && newPayment.value.method && newPayment.value.orderId) {
+      payments.value.push({ ...newPayment.value, id: Date.now() });
+      newPayment.value = { date: '', amount: '', method: '', orderId: '' };
     }
-  };
+  }
+  
+  function editPayment(payment) {
+    isEditing.value = true;
+    newPayment.value = { ...payment };
+  }
+  
+  function updatePayment() {
+    const paymentIndex = payments.value.findIndex(p => p.id === newPayment.value.id);
+    if (paymentIndex !== -1) {
+      payments.value.splice(paymentIndex, 1, { ...newPayment.value });
+    }
+    isEditing.value = false;
+    newPayment.value = { date: '', amount: '', method: '', orderId: '' };
+  }
+  
+  function listPayment(payment) {
+    currentPayment.value = { ...payment };
+  }
+  
+  function removePayment(id) {
+    payments.value = payments.value.filter(payment => payment.id !== id);
+  }
   </script>
   
   <style scoped>

@@ -3,46 +3,53 @@
       <h2>Détails de la Commande</h2>
       <!-- Formulaire pour ajouter/modifier les détails d'une commande -->
       <div class="mb-3">
-        <input v-model="newDetail.product" class="form-control" placeholder="Produit">
-        <input v-model="newDetail.quantity" class="form-control mt-2" placeholder="Quantité">
-        <input v-model="newDetail.price" class="form-control mt-2" placeholder="Prix">
-        <button @click="addDetail" class="btn btn-primary mt-3">Ajouter Détail</button>
+        <input v-model="newDetail.product" class="form-control mb-2" placeholder="Produit">
+        <input v-model="newDetail.quantity" type="number" class="form-control mb-2" placeholder="Quantité">
+        <input v-model="newDetail.price" type="number" step="0.01" class="form-control mb-2" placeholder="Prix">
+        <button @click="addDetail" class="btn btn-primary">Ajouter Détail</button>
       </div>
       <!-- Liste des détails de la commande -->
       <ul class="list-group">
         <li v-for="detail in details" :key="detail.id" class="list-group-item d-flex justify-content-between align-items-center">
-          <span>{{ detail.product }} - {{ detail.quantity }} - {{ detail.price }}</span>
+          <span>{{ detail.product }} - {{ detail.quantity }} - {{ detail.price.toFixed(2) }} €</span>
           <button @click="removeDetail(detail.id)" class="btn btn-danger btn-sm">Supprimer</button>
         </li>
       </ul>
     </div>
   </template>
   
-  <script>
-  export default {
-    props: ['orderId'],
-    data() {
-      return {
-        newDetail: {
-          product: '',
-          quantity: '',
-          price: ''
-        },
-        details: []
-      }
-    },
-    methods: {
-      addDetail() {
-        // Ajouter un détail de commande (dummy logic)
-        this.details.push({ ...this.newDetail, id: Date.now() });
-        this.newDetail = { product: '', quantity: '', price: '' };
-      },
-      removeDetail(id) {
-        // Supprimer un détail de commande (dummy logic)
-        this.details = this.details.filter(detail => detail.id !== id);
-      }
+  <script setup>
+  import { ref, defineProps } from 'vue';
+  
+  // Définition des props
+  const props = defineProps({
+    orderId: {
+      type: Number,
+      required: true
     }
-  }
+  });
+  
+  // Déclaration des variables réactives
+  const newDetail = ref({
+    product: '',
+    quantity: '',
+    price: ''
+  });
+  const details = ref([]);
+  
+  // Méthodes pour gérer les détails de la commande
+  const addDetail = () => {
+    if (newDetail.value.product && newDetail.value.quantity && newDetail.value.price) {
+      details.value.push({ ...newDetail.value, id: Date.now() });
+      newDetail.value = { product: '', quantity: '', price: '' };
+    } else {
+      alert('Veuillez remplir tous les champs.');
+    }
+  };
+  
+  const removeDetail = (id) => {
+    details.value = details.value.filter(detail => detail.id !== id);
+  };
   </script>
   
   <style scoped>

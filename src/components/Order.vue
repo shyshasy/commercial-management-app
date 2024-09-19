@@ -6,13 +6,12 @@
         </li>
       </ul>
       <!-- Buttons for Submit and Return to Home positioned in the top-right corner -->
-      <div class="form-buttons custom-buttons">
-    <!-- Utiliser 'router-link' pour une navigation facile -->
-    <router-link to="/" class="btn btn-secondary me-2">Return to Home</router-link>
-    <button type="submit" class="btn btn-success">Submit</button>
-  </div>
-
-
+      <div class="form-buttons">
+        <!-- Utiliser 'router-link' pour une navigation facile -->
+        <router-link to="/" class="btn btn-secondary me-2">Return to Home</router-link>
+        <button type="submit" class="btn btn-success" @click="submitOrder">Submit</button>
+      </div>
+  
       <form @submit.prevent="submitOrder" class="mt-4">
         <div class="row">
           <!-- Left Column -->
@@ -59,9 +58,9 @@
             </thead>
             <tbody>
               <tr v-for="(detail, index) in order.details" :key="index">
-                <td><input type="text" class="form-control" v-model="detail.product"></td>
-                <td><input type="number" class="form-control" v-model="detail.quantity"></td>
-                <td><input type="number" class="form-control" v-model="detail.price"></td>
+                <td><input type="text" class="form-control" v-model="detail.product" required></td>
+                <td><input type="number" class="form-control" v-model="detail.quantity" min="1" required></td>
+                <td><input type="number" class="form-control" v-model="detail.price" step="0.01" min="0" required></td>
                 <td><button type="button" class="btn btn-danger" @click="removeDetail(index)">Remove</button></td>
               </tr>
             </tbody>
@@ -72,61 +71,64 @@
     </div>
   </template>
   
+  <script setup>
+  import { ref, computed } from 'vue';
   
-  <script>
-  export default {
-    data() {
-      return {
-        order: {
-          date: '',
-          customerName: '',
-          deliveryAddress: '',
-          trackNumber: '',  // Nouveau champ pour le numéro de suivi
-          status: 'processing', // Nouveau champ pour le statut de la commande
-          details: [
-            { product: '', quantity: 1, price: 0 }
-          ]
-        }
-      };
-    },
-    methods: {
-      addDetail() {
-        this.order.details.push({ product: '', quantity: 1, price: 0 });
-      },
-      removeDetail(index) {
-        this.order.details.splice(index, 1);
-      },
-      submitOrder() {
-        alert('Order submitted!');
-      },
-      returnHome() {
-        alert('Returning to home!');
-      }
+  const order = ref({
+    date: '',
+    customerName: '',
+    deliveryAddress: '',
+    trackNumber: '',
+    status: 'processing',
+    details: [
+      { product: '', quantity: 1, price: 0 }
+    ]
+  });
+  
+  const addDetail = () => {
+    order.value.details.push({ product: '', quantity: 1, price: 0 });
+  };
+  
+  const removeDetail = (index) => {
+    order.value.details.splice(index, 1);
+  };
+  
+  const isValidOrder = computed(() => {
+    return order.value.date && order.value.customerName && order.value.deliveryAddress &&
+           order.value.details.every(detail => detail.product && detail.quantity > 0 && detail.price >= 0);
+  });
+  
+  const submitOrder = () => {
+    if (isValidOrder.value) {
+      // Logic for submitting the order
+      alert('Order submitted!');
+    } else {
+      alert('Please fill in all fields correctly.');
     }
   };
   </script>
   
   <style scoped>
-.container {
-  margin-top: 20px;
-  position: relative; /* Assurez-vous que le conteneur est positionné relativement */
-}
-
-.form-buttons {
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  top: 0; /* Positionne les boutons en haut du conteneur */
-  right: 0; /* Positionne les boutons à droite du conteneur */
-  gap: 0.5rem; /* Ajuste l'espacement entre les boutons */
-}
-
-.custom-buttons {
-  position: absolute;
-  top: -20px; /* Ajustez cette valeur pour encore plus de hauteur */
-  right: 0;
-  padding: 1rem;
-  z-index: 10; /* Assure que les boutons restent au-dessus des autres éléments */
-}
-
-</style>
+  .container {
+    margin-top: 20px;
+    position: relative;
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    gap: 0.5rem;
+  }
+  
+  .custom-buttons {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    padding: 1rem;
+    z-index: 10;
+  }
+  </style>
+  
