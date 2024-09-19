@@ -7,9 +7,10 @@
       </ul>
       <!-- Buttons for Submit and Return to Home positioned in the top-right corner -->
       <div class="form-buttons custom-buttons">
-  <button type="button" class="btn btn-secondary me-2" @click="returnHome">Return to Home</button>
-  <button type="submit" class="btn btn-success">Submit</button>
-</div>
+    <!-- Utiliser 'router-link' pour une navigation facile -->
+    <router-link to="/" class="btn btn-secondary me-2">Return to Home</router-link>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </div>
 
 
       <form @submit.prevent="submitOrder" class="mt-4">

@@ -1,11 +1,11 @@
 <template>
     <div class="home-container">
       <div class="hero-section text-center">
-        <h1>Bienvenue chez ABC Corporation</h1>
-        <p class="lead">Votre solution de gestion commerciale élégante et moderne</p>
+        <h1>Welcome to ABC Corporation</h1>
+        <p class="lead">Your elegant and modern business management solution</p>
         <router-link to="/products">
           <button class="btn btn-primary btn-lg">
-            <i class="fas fa-box-open me-2"></i> Découvrez nos produits
+            <i class="fas fa-box-open me-2"></i> Discover our products
           </button>
         </router-link>
       </div>
@@ -16,39 +16,39 @@
               <div class="feature-card p-4 bg-white shadow rounded">
                 <i class="fas fa-user-friends fa-2x mb-3"></i>
                 <h2>Clients</h2>
-                <p>Gérez vos clients facilement avec une interface intuitive.</p>
+                <p>Manage your clients easily with an intuitive interface.</p>
                 <router-link to="/customers" class="btn btn-outline-primary">
-                  <i class="fas fa-users me-2"></i> Voir les clients
+                  <i class="fas fa-users me-2"></i> View Clients
                 </router-link>
               </div>
             </div>
             <div class="col-md-3 mb-4">
               <div class="feature-card p-4 bg-white shadow rounded">
                 <i class="fas fa-box fa-2x mb-3"></i>
-                <h2>Produits</h2>
-                <p>Organisez vos produits et contrôlez vos stocks avec efficacité.</p>
+                <h2>Products</h2>
+                <p>Organize your products and efficiently control your inventory.</p>
                 <router-link to="/products" class="btn btn-outline-primary">
-                  <i class="fas fa-boxes me-2"></i> Voir les produits
+                  <i class="fas fa-boxes me-2"></i> View Products
                 </router-link>
               </div>
             </div>
             <div class="col-md-3 mb-4">
               <div class="feature-card p-4 bg-white shadow rounded">
                 <i class="fas fa-shopping-cart fa-2x mb-3"></i>
-                <h2>Commandes</h2>
-                <p>Suivez et gérez vos commandes avec une vue claire et détaillée.</p>
+                <h2>Orders</h2>
+                <p>Track and manage your orders with a clear and detailed view.</p>
                 <router-link to="/orders" class="btn btn-outline-primary">
-                  <i class="fas fa-clipboard-list me-2"></i> Voir les commandes
+                  <i class="fas fa-clipboard-list me-2"></i> View Orders
                 </router-link>
               </div>
             </div>
             <div class="col-md-3 mb-4">
               <div class="feature-card p-4 bg-white shadow rounded">
                 <i class="fas fa-credit-card fa-2x mb-3"></i>
-                <h2>Paiements</h2>
-                <p>Gérez les paiements de manière simple et efficace.</p>
+                <h2>Payments</h2>
+                <p>Manage payments in a simple and efficient way.</p>
                 <router-link to="/payments" class="btn btn-outline-primary">
-                  <i class="fas fa-receipt me-2"></i> Voir les paiements
+                  <i class="fas fa-receipt me-2"></i> View Payments
                 </router-link>
               </div>
             </div>
@@ -57,8 +57,9 @@
       </div>
     </div>
   </template>
+  
   <style scoped>
-  /* Styles pour la vue d'accueil */
+  /* Styles for the homepage */
   .home-container {
     padding: 50px 0;
   }
