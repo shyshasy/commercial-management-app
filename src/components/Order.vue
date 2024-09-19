@@ -8,7 +8,7 @@
       <!-- Buttons for Submit and Return to Home positioned in the top-right corner -->
       <div class="form-buttons">
         <!-- Utiliser 'router-link' pour une navigation facile -->
-        <router-link to="/" class="btn btn-secondary me-2">Return to Home</router-link>
+        <router-link to="/OrderList" class="btn btn-secondary me-2">Return to OrderList</router-link>
         <button type="submit" class="btn btn-success" @click="submitOrder">Submit</button>
       </div>
   

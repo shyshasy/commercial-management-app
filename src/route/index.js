@@ -5,12 +5,13 @@ import Product from '../components/Product.vue'
 import Order from '../components/Order.vue'
 import OrderDetail from '../components/OrderDetail.vue'
 import Payment from '../components/Payment.vue'  // Importer le composant Payment
-
+import OrdersList from '../components/OrderList.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/customers', component: Customer },
   { path: '/products', component: Product },
+  { path: '/OrderList', component: OrdersList },
   { path: '/orders', component: Order },
   { path: '/orders/:id', name: 'OrderDetail', component: OrderDetail, props: true },
   { path: '/payments', component: Payment }  // Ajouter la route pour les paiements
