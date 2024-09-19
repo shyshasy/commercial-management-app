@@ -7,6 +7,8 @@ export default defineConfig({
     port: 3000
   },
   build: {
-    outDir: 'dist' // Assurez-vous que ce répertoire correspond à ce que vous utilisez dans Vercel
+    rollupOptions: {
+      external: ['vue-router']  // Externalize vue-router to avoid build issues
+    }
   }
 });
