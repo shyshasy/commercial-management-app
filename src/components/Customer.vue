@@ -1,32 +1,35 @@
 <template>
-  <div>
+  <div class="container mt-5">
+    <!-- En-tête -->
     <div class="d-flex align-items-center mb-4">
       <h2>Customer Management</h2>
     </div>
 
-    <!-- Form to add a new customer -->
-    <div class="card p-3 mb-4">
-      <h4><i class="fas fa-user-plus me-2"></i>Add a new customer</h4>
-      <div class="mb-3">
-        <input v-model="newCustomer.name" class="form-control mt-2" placeholder="Name" />
-        <input v-model="newCustomer.address" class="form-control mt-2" placeholder="Address" />
-        <input v-model="newCustomer.email" class="form-control mt-2" placeholder="Email" />
-        <input v-model="newCustomer.phone" class="form-control mt-2" placeholder="Phone" />
-      </div>
-      <button @click="addCustomer" class="btn btn-primary">
-        <i class="fas fa-plus-circle"></i> Add Customer
-      </button>
-    </div>
+    <!-- Bouton pour ouvrir la fenêtre modale d'ajout -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+      <i class="fas fa-user-plus me-2"></i> Add New Customer
+    </button>
 
-    <!-- Customer list -->
-    <div class="card p-3">
-      <ul class="list-group">
-        <li v-for="customer in customers" :key="customer.id" class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <i class="fas fa-user me-2"></i>
-            <span>{{ customer.name }}</span>
-          </div>
-          <div>
+    <!-- Tableau Bootstrap pour afficher les clients -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(customer, index) in customers" :key="customer.id">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.address }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.phone }}</td>
+          <td>
             <button @click="listCustomer(customer)" class="btn btn-info btn-sm me-2">
               <i class="fas fa-eye"></i> List
             </button>
@@ -36,12 +39,34 @@
             <button @click="removeCustomer(customer.id)" class="btn btn-danger btn-sm">
               <i class="fas fa-trash-alt"></i> Delete
             </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Modal d'ajout de client -->
+    <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCustomerModalLabel">Add a New Customer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        </li>
-      </ul>
+          <div class="modal-body">
+            <input v-model="newCustomer.name" class="form-control mt-2" placeholder="Name" />
+            <input v-model="newCustomer.address" class="form-control mt-2" placeholder="Address" />
+            <input v-model="newCustomer.email" class="form-control mt-2" placeholder="Email" />
+            <input v-model="newCustomer.phone" class="form-control mt-2" placeholder="Phone" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" @click="confirmAddCustomer">Add Customer</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Selected customer details (for List) -->
+    <!-- Modal fenêtre pour afficher les détails du client -->
     <div v-if="selectedCustomer" class="modal show d-block" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -64,26 +89,21 @@
       </div>
     </div>
 
-    <!-- Modal window for editing a customer -->
+    <!-- Modal pour l'édition d'un client -->
     <div v-if="editingCustomer" class="modal show d-block" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button @click="listCustomer(editingCustomer)" class="btn btn-info btn-sm mb-3">
-              <i class="fas fa-list"></i> List
-            </button>
             <h5 class="modal-title">Edit Customer</h5>
             <button type="button" class="close" aria-label="Close" @click="closeEditModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <div class="mb-3">
-              <input v-model="editingCustomer.name" class="form-control mt-2" placeholder="Name" />
-              <input v-model="editingCustomer.address" class="form-control mt-2" placeholder="Address" />
-              <input v-model="editingCustomer.email" class="form-control mt-2" placeholder="Email" />
-              <input v-model="editingCustomer.phone" class="form-control mt-2" placeholder="Phone" />
-            </div>
+            <input v-model="editingCustomer.name" class="form-control mt-2" placeholder="Name" />
+            <input v-model="editingCustomer.address" class="form-control mt-2" placeholder="Address" />
+            <input v-model="editingCustomer.email" class="form-control mt-2" placeholder="Email" />
+            <input v-model="editingCustomer.phone" class="form-control mt-2" placeholder="Phone" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeEditModal">Close</button>
@@ -106,30 +126,33 @@ export default {
         phone: ''
       },
       customers: [],
-      selectedCustomer: null, // Selected customer for detail view
-      editingCustomer: null // Customer being edited
+      selectedCustomer: null,
+      editingCustomer: null
     };
   },
   methods: {
-    addCustomer() {
+    confirmAddCustomer() {
       if (this.newCustomer.name && this.newCustomer.email && this.newCustomer.phone) {
         this.customers.push({ ...this.newCustomer, id: Date.now() });
         this.newCustomer = { name: '', address: '', email: '', phone: '' };
+        const modal = document.getElementById('addCustomerModal');
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide(); // Ferme la fenêtre modale après l'ajout
       } else {
         alert('Please fill out all required fields.');
       }
     },
     editCustomer(customer) {
-      this.editingCustomer = { ...customer }; // Prepare copy for editing
+      this.editingCustomer = { ...customer };
     },
     closeEditModal() {
-      this.editingCustomer = null; // Close the edit modal
+      this.editingCustomer = null;
     },
     saveCustomer() {
       const index = this.customers.findIndex(c => c.id === this.editingCustomer.id);
       if (index !== -1) {
         this.$set(this.customers, index, this.editingCustomer);
-        alert('Changes saved successfully!'); // Confirmation message
+        alert('Changes saved successfully!');
       }
       this.closeEditModal();
     },
@@ -142,7 +165,7 @@ export default {
       this.selectedCustomer = customer;
     },
     clearSelection() {
-      this.selectedCustomer = null; // Close the detail view modal
+      this.selectedCustomer = null;
     }
   }
 };
@@ -161,48 +184,16 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.list-group-item {
-  font-size: 16px;
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
 }
 
 button i {
   margin-right: 5px;
 }
 
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-info {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
-}
-
-.btn-warning {
-  background-color: #ffc107;
-  border-color: #ffc107;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.fas {
-  color: #007bff;
-}
-
-.me-2 {
-  margin-right: 8px;
-}
-
-/* Modal window style */
 .modal.show {
   display: block;
   background: rgba(0, 0, 0, 0.5);
@@ -211,23 +202,5 @@ button i {
 .modal-dialog {
   max-width: 600px;
   margin: 1.75rem auto;
-}
-
-.modal-content {
-  background-color: #fff;
-  border-radius: 0.3rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modal-header .close {
-  margin: -1rem -1rem -1rem auto;
-}
-
-.modal-footer {
-  border-top: 1px solid #dee2e6;
-}
-
-.modal-body .btn-info {
-  margin-bottom: 15px; /* Space between "List" button and the rest of the form */
 }
 </style>

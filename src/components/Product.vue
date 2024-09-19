@@ -1,39 +1,77 @@
 <template>
-    <div>
+    <div class="container mt-5">
       <h2>Product Management</h2>
       
-      <!-- Form to add a product -->
-      <div class="mb-3">
-        <input v-model="newProduct.name" class="form-control" placeholder="Product Name">
-        <input v-model="newProduct.description" class="form-control mt-2" placeholder="Description">
-        <input v-model="newProduct.price" class="form-control mt-2" placeholder="Price">
-        <input v-model="newProduct.stock" class="form-control mt-2" placeholder="Stock">
-        <input v-model="newProduct.category" class="form-control mt-2" placeholder="Category">
-        <input v-model="newProduct.barcode" class="form-control mt-2" placeholder="Barcode">
-        <input v-model="newProduct.status" class="form-control mt-2" placeholder="Status">
-        <button @click="addProduct" class="btn btn-primary mt-3">
-          <i class="fas fa-plus"></i> Add Product
-        </button>
-      </div>
+      <!-- Button to open Add Product Modal -->
+      <button class="btn btn-success mb-3" @click="openAddModal">
+        <i class="fas fa-plus"></i> Add New Product
+      </button>
       
-      <!-- Product list -->
-      <ul class="list-group">
-        <li v-for="product in products" :key="product.id" class="list-group-item d-flex justify-content-between align-items-center">
-          <span>{{ product.name }}</span>
-          <div>
-            <button @click="listProduct(product)" class="btn btn-info btn-sm me-2">
-              <i class="fas fa-eye"></i> List
-            </button>
-            <button @click="editProduct(product)" class="btn btn-warning btn-sm me-2">
-              <i class="fas fa-edit"></i> Edit
-            </button>
-            <button @click="removeProduct(product.id)" class="btn btn-danger btn-sm">
-              <i class="fas fa-trash"></i> Delete
-            </button>
+      <!-- Product list in a Bootstrap table -->
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Barcode</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="product in products" :key="product.id">
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.barcode }}</td>
+            <td>{{ product.status }}</td>
+            <td>
+              <button @click="listProduct(product)" class="btn btn-info btn-sm me-2">
+                <i class="fas fa-eye"></i> View
+              </button>
+              <button @click="editProduct(product)" class="btn btn-warning btn-sm me-2">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button @click="removeProduct(product.id)" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Modal for adding a product -->
+      <div v-if="showAddModal" class="modal show d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add New Product</h5>
+              <button type="button" class="close" aria-label="Close" @click="closeAddModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input v-model="newProduct.name" class="form-control mb-2" placeholder="Product Name">
+              <input v-model="newProduct.description" class="form-control mb-2" placeholder="Description">
+              <input v-model="newProduct.price" class="form-control mb-2" placeholder="Price">
+              <input v-model="newProduct.stock" class="form-control mb-2" placeholder="Stock">
+              <input v-model="newProduct.category" class="form-control mb-2" placeholder="Category">
+              <input v-model="newProduct.barcode" class="form-control mb-2" placeholder="Barcode">
+              <input v-model="newProduct.status" class="form-control mb-2" placeholder="Status">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="closeAddModal">Close</button>
+              <button type="button" class="btn btn-primary" @click="addProduct">Add Product</button>
+            </div>
           </div>
-        </li>
-      </ul>
-      
+        </div>
+      </div>
+  
       <!-- Modal for listing a product -->
       <div v-if="selectedProduct" class="modal show d-block" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -45,34 +83,13 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="mb-2">
-                <label><strong>Name:</strong></label>
-                <p>{{ selectedProduct.name }}</p>
-              </div>
-              <div class="mb-2">
-                <label><strong>Description:</strong></label>
-                <p>{{ selectedProduct.description }}</p>
-              </div>
-              <div class="mb-2">
-                <label><strong>Price:</strong></label>
-                <p>{{ selectedProduct.price }}</p>
-              </div>
-              <div class="mb-2">
-                <label><strong>Stock:</strong></label>
-                <p>{{ selectedProduct.stock }}</p>
-              </div>
-              <div class="mb-2">
-                <label><strong>Category:</strong></label>
-                <p>{{ selectedProduct.category }}</p>
-              </div>
-              <div class="mb-2">
-                <label><strong>Barcode:</strong></label>
-                <p>{{ selectedProduct.barcode }}</p>
-              </div>
-              <div class="mb-2">
-                <label><strong>Status:</strong></label>
-                <p>{{ selectedProduct.status }}</p>
-              </div>
+              <p><strong>Name:</strong> {{ selectedProduct.name }}</p>
+              <p><strong>Description:</strong> {{ selectedProduct.description }}</p>
+              <p><strong>Price:</strong> {{ selectedProduct.price }}</p>
+              <p><strong>Stock:</strong> {{ selectedProduct.stock }}</p>
+              <p><strong>Category:</strong> {{ selectedProduct.category }}</p>
+              <p><strong>Barcode:</strong> {{ selectedProduct.barcode }}</p>
+              <p><strong>Status:</strong> {{ selectedProduct.status }}</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click="clearSelection">Close</button>
@@ -145,30 +162,38 @@
           status: ''
         },
         products: [],
-        selectedProduct: null, // Selected product for viewing details
-        editingProduct: null // Product currently being edited
+        selectedProduct: null,
+        editingProduct: null,
+        showAddModal: false // Modal visibility control for adding products
       };
     },
     methods: {
+      openAddModal() {
+        this.showAddModal = true;
+      },
+      closeAddModal() {
+        this.showAddModal = false;
+      },
       addProduct() {
         if (this.newProduct.name && this.newProduct.price && this.newProduct.stock) {
           this.products.push({ ...this.newProduct, id: Date.now() });
           this.newProduct = { name: '', description: '', price: '', stock: '', category: '', barcode: '', status: '' };
+          this.closeAddModal(); // Close modal after adding product
         } else {
           alert('Please fill in all required fields.');
         }
       },
       editProduct(product) {
-        this.editingProduct = { ...product }; // Prepares a copy for editing
+        this.editingProduct = { ...product };
       },
       closeEditModal() {
-        this.editingProduct = null; // Closes the edit modal
+        this.editingProduct = null;
       },
       saveProduct() {
         const index = this.products.findIndex(p => p.id === this.editingProduct.id);
         if (index !== -1) {
           this.$set(this.products, index, this.editingProduct);
-          alert('Changes saved successfully!'); // Confirmation message
+          alert('Changes saved successfully!');
         }
         this.closeEditModal();
       },
@@ -181,21 +206,58 @@
         this.selectedProduct = product;
       },
       clearSelection() {
-        this.selectedProduct = null; // Closes the details modal
+        this.selectedProduct = null;
       }
     }
   };
   </script>
   
   <style scoped>
-  /* Styles for a chic design */
   h2 {
     font-weight: bold;
     color: #333;
   }
   
-  .list-group-item {
+  .table {
     font-size: 16px;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-dialog {
+    max-width: 600px;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .close {
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    line-height: 1;
   }
   
   .btn-primary {
@@ -206,61 +268,6 @@
   .btn-secondary {
     background-color: #6c757d;
     border-color: #6c757d;
-  }
-  
-  .btn-info {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
-  }
-  
-  .btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-  }
-  
-  .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-  }
-  
-  .modal.show {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    border-radius: 0.3rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-header,
-  .modal-footer {
-    padding: 1rem;
-    border-bottom: 1px solid #e9ecef;
-  }
-  
-  .modal-title {
-    font-size: 1.25rem;
-  }
-  
-  .close {
-    font-size: 1.5rem;
-    color: #000;
-  }
-  
-  .close:hover {
-    color: #dc3545;
-  }
-  
-  .form-control {
-    border-radius: 0.3rem;
-    border: 1px solid #ced4da;
   }
   </style>
   
