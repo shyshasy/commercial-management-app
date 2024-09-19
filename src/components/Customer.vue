@@ -53,10 +53,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <input v-model="newCustomer.name" class="form-control mt-2" placeholder="Name" />
-            <input v-model="newCustomer.address" class="form-control mt-2" placeholder="Address" />
-            <input v-model="newCustomer.email" class="form-control mt-2" placeholder="Email" />
-            <input v-model="newCustomer.phone" class="form-control mt-2" placeholder="Phone" />
+            <div class="mb-3">
+              <label for="newCustomerName" class="form-label">Name</label>
+              <input v-model="newCustomer.name" id="newCustomerName" class="form-control" placeholder="Name" />
+            </div>
+            <div class="mb-3">
+              <label for="newCustomerAddress" class="form-label">Address</label>
+              <input v-model="newCustomer.address" id="newCustomerAddress" class="form-control" placeholder="Address" />
+            </div>
+            <div class="mb-3">
+              <label for="newCustomerEmail" class="form-label">Email</label>
+              <input v-model="newCustomer.email" id="newCustomerEmail" class="form-control" placeholder="Email" />
+            </div>
+            <div class="mb-3">
+              <label for="newCustomerPhone" class="form-label">Phone</label>
+              <input v-model="newCustomer.phone" id="newCustomerPhone" class="form-control" placeholder="Phone" />
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -66,7 +78,7 @@
       </div>
     </div>
 
-    <!-- Modal fenêtre pour afficher les détails du client -->
+    <!-- Modal fenêtre pour afficher les détails du client (List) -->
     <div v-if="selectedCustomer" class="modal show d-block" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -77,10 +89,22 @@
             </button>
           </div>
           <div class="modal-body">
-            <p><strong>Name:</strong> {{ selectedCustomer.name }}</p>
-            <p><strong>Address:</strong> {{ selectedCustomer.address }}</p>
-            <p><strong>Email:</strong> {{ selectedCustomer.email }}</p>
-            <p><strong>Phone:</strong> {{ selectedCustomer.phone }}</p>
+            <div class="mb-3">
+              <label for="viewCustomerName" class="form-label">Name</label>
+              <input v-model="selectedCustomer.name" id="viewCustomerName" class="form-control" placeholder="Name" readonly />
+            </div>
+            <div class="mb-3">
+              <label for="viewCustomerAddress" class="form-label">Address</label>
+              <input v-model="selectedCustomer.address" id="viewCustomerAddress" class="form-control" placeholder="Address" readonly />
+            </div>
+            <div class="mb-3">
+              <label for="viewCustomerEmail" class="form-label">Email</label>
+              <input v-model="selectedCustomer.email" id="viewCustomerEmail" class="form-control" placeholder="Email" readonly />
+            </div>
+            <div class="mb-3">
+              <label for="viewCustomerPhone" class="form-label">Phone</label>
+              <input v-model="selectedCustomer.phone" id="viewCustomerPhone" class="form-control" placeholder="Phone" readonly />
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="clearSelection">Close</button>
@@ -100,10 +124,22 @@
             </button>
           </div>
           <div class="modal-body">
-            <input v-model="editingCustomer.name" class="form-control mt-2" placeholder="Name" />
-            <input v-model="editingCustomer.address" class="form-control mt-2" placeholder="Address" />
-            <input v-model="editingCustomer.email" class="form-control mt-2" placeholder="Email" />
-            <input v-model="editingCustomer.phone" class="form-control mt-2" placeholder="Phone" />
+            <div class="mb-3">
+              <label for="editCustomerName" class="form-label">Name</label>
+              <input v-model="editingCustomer.name" id="editCustomerName" class="form-control" placeholder="Name" />
+            </div>
+            <div class="mb-3">
+              <label for="editCustomerAddress" class="form-label">Address</label>
+              <input v-model="editingCustomer.address" id="editCustomerAddress" class="form-control" placeholder="Address" />
+            </div>
+            <div class="mb-3">
+              <label for="editCustomerEmail" class="form-label">Email</label>
+              <input v-model="editingCustomer.email" id="editCustomerEmail" class="form-control" placeholder="Email" />
+            </div>
+            <div class="mb-3">
+              <label for="editCustomerPhone" class="form-label">Phone</label>
+              <input v-model="editingCustomer.phone" id="editCustomerPhone" class="form-control" placeholder="Phone" />
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeEditModal">Close</button>
