@@ -9,16 +9,24 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link" to="/customers">Customer</router-link>
+              <router-link class="nav-link" to="/customers">
+                <i class="fas fa-users"></i> Customer
+              </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/products">Product</router-link>
+              <router-link class="nav-link" to="/products">
+                <i class="fas fa-box"></i> Product
+              </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/orders">Order</router-link>
+              <router-link class="nav-link" to="/orders">
+                <i class="fas fa-shopping-cart"></i> Order
+              </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/payments">Payment</router-link>
+              <router-link class="nav-link" to="/payments">
+                <i class="fas fa-credit-card"></i> Payment
+              </router-link>
             </li>
           </ul>
         </div>
@@ -48,5 +56,9 @@ export default {
 
 .nav-link:hover {
   color: #007bff;
+}
+
+i {
+  margin-right: 5px;
 }
 </style>

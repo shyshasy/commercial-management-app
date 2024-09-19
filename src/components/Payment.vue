@@ -86,15 +86,15 @@
             <td>
               <!-- Bouton Lister avec l'icône FontAwesome -->
               <button @click="listPayment(payment)" class="btn btn-info btn-sm me-1" data-bs-toggle="modal" data-bs-target="#listPaymentModal">
-                <i class="fas fa-eye"></i> Lister
+                <i class="fas fa-eye"></i> 
               </button>
               <!-- Bouton Modifier avec l'icône FontAwesome -->
-              <button @click="editPayment(payment)" class="btn btn-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                <i class="fas fa-edit"></i> Modifier
+              <button @click="editPayment(payment)" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                <i class="fas fa-edit"></i> 
               </button>
               <!-- Bouton Supprimer avec l'icône FontAwesome -->
               <button @click="removePayment(payment.id)" class="btn btn-danger btn-sm">
-                <i class="fas fa-trash"></i> Supprimer
+                <i class="fas fa-trash"></i> 
               </button>
             </td>
           </tr>
