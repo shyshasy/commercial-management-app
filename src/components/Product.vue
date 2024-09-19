@@ -1,12 +1,12 @@
 <template>
     <div class="container mt-5">
       <h2>Product Management</h2>
-      
+  
       <!-- Button to open Add Product Modal -->
       <button class="btn btn-success mb-3" @click="openAddModal">
         <i class="fas fa-plus"></i> Add New Product
       </button>
-      
+  
       <!-- Product list in a Bootstrap table -->
       <table class="table table-striped mt-4">
         <thead>
@@ -148,126 +148,76 @@
     </div>
   </template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        newProduct: {
-          name: '',
-          description: '',
-          price: '',
-          stock: '',
-          category: '',
-          barcode: '',
-          status: ''
-        },
-        products: [],
-        selectedProduct: null,
-        editingProduct: null,
-        showAddModal: false // Modal visibility control for adding products
-      };
-    },
-    methods: {
-      openAddModal() {
-        this.showAddModal = true;
-      },
-      closeAddModal() {
-        this.showAddModal = false;
-      },
-      addProduct() {
-        if (this.newProduct.name && this.newProduct.price && this.newProduct.stock) {
-          this.products.push({ ...this.newProduct, id: Date.now() });
-          this.newProduct = { name: '', description: '', price: '', stock: '', category: '', barcode: '', status: '' };
-          this.closeAddModal(); // Close modal after adding product
-        } else {
-          alert('Please fill in all required fields.');
-        }
-      },
-      editProduct(product) {
-        this.editingProduct = { ...product };
-      },
-      closeEditModal() {
-        this.editingProduct = null;
-      },
-      saveProduct() {
-        const index = this.products.findIndex(p => p.id === this.editingProduct.id);
-        if (index !== -1) {
-          this.$set(this.products, index, this.editingProduct);
-          alert('Changes saved successfully!');
-        }
-        this.closeEditModal();
-      },
-      removeProduct(id) {
-        if (confirm('Are you sure you want to delete this product?')) {
-          this.products = this.products.filter(product => product.id !== id);
-        }
-      },
-      listProduct(product) {
-        this.selectedProduct = product;
-      },
-      clearSelection() {
-        this.selectedProduct = null;
-      }
+  <script setup>
+  import { ref } from 'vue';
+  
+  // Variables réactives
+  const products = ref([]);
+  const newProduct = ref({
+    name: '',
+    description: '',
+    price: '',
+    stock: '',
+    category: '',
+    barcode: '',
+    status: ''
+  });
+  const selectedProduct = ref(null);
+  const editingProduct = ref(null);
+  const showAddModal = ref(false);
+  
+  // Fonctions
+  const openAddModal = () => {
+    showAddModal.value = true;
+  };
+  
+  const closeAddModal = () => {
+    showAddModal.value = false;
+  };
+  
+  const addProduct = () => {
+    if (newProduct.value.name && newProduct.value.price && newProduct.value.stock) {
+      products.value.push({ ...newProduct.value, id: Date.now() });
+      newProduct.value = { name: '', description: '', price: '', stock: '', category: '', barcode: '', status: '' };
+      closeAddModal();
+    } else {
+      alert('Please fill in all required fields.');
     }
+  };
+  
+  const editProduct = (product) => {
+    editingProduct.value = { ...product };
+  };
+  
+  const closeEditModal = () => {
+    editingProduct.value = null;
+  };
+  
+  const saveProduct = () => {
+    const index = products.value.findIndex(p => p.id === editingProduct.value.id);
+    if (index !== -1) {
+      products.value[index] = editingProduct.value;
+      alert('Changes saved successfully!');
+    }
+    closeEditModal();
+  };
+  
+  const removeProduct = (id) => {
+    if (confirm('Are you sure you want to delete this product?')) {
+      products.value = products.value.filter(product => product.id !== id);
+    }
+  };
+  
+  const listProduct = (product) => {
+    selectedProduct.value = product;
+  };
+  
+  const clearSelection = () => {
+    selectedProduct.value = null;
   };
   </script>
   
   <style scoped>
-  h2 {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .table {
-    font-size: 16px;
-  }
-  
-  .btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-  }
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1050;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-dialog {
-    max-width: 600px;
-  }
-  
-  .modal-content {
-    padding: 20px;
-  }
-  
-  .modal-footer {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .close {
-    border: none;
-    background: transparent;
-    font-size: 24px;
-    line-height: 1;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-  }
+  /* Add any additional custom styles here */
   </style>
   

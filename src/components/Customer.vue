@@ -151,92 +151,58 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      newCustomer: {
-        name: '',
-        address: '',
-        email: '',
-        phone: ''
-      },
-      customers: [],
-      selectedCustomer: null,
-      editingCustomer: null
-    };
-  },
-  methods: {
-    confirmAddCustomer() {
-      if (this.newCustomer.name && this.newCustomer.email && this.newCustomer.phone) {
-        this.customers.push({ ...this.newCustomer, id: Date.now() });
-        this.newCustomer = { name: '', address: '', email: '', phone: '' };
-        const modal = document.getElementById('addCustomerModal');
-        const modalInstance = bootstrap.Modal.getInstance(modal);
-        modalInstance.hide(); // Ferme la fenêtre modale après l'ajout
-      } else {
-        alert('Please fill out all required fields.');
-      }
-    },
-    editCustomer(customer) {
-      this.editingCustomer = { ...customer };
-    },
-    closeEditModal() {
-      this.editingCustomer = null;
-    },
-    saveCustomer() {
-      const index = this.customers.findIndex(c => c.id === this.editingCustomer.id);
-      if (index !== -1) {
-        this.$set(this.customers, index, this.editingCustomer);
-        alert('Changes saved successfully!');
-      }
-      this.closeEditModal();
-    },
-    removeCustomer(id) {
-      if (confirm('Are you sure you want to delete this customer?')) {
-        this.customers = this.customers.filter(customer => customer.id !== id);
-      }
-    },
-    listCustomer(customer) {
-      this.selectedCustomer = customer;
-    },
-    clearSelection() {
-      this.selectedCustomer = null;
-    }
+<script setup>
+import { ref } from 'vue';
+
+// Déclaration des variables réactives
+const newCustomer = ref({ name: '', address: '', email: '', phone: '' });
+const customers = ref([]);
+const selectedCustomer = ref(null);
+const editingCustomer = ref(null);
+
+// Méthodes pour gérer les clients
+const confirmAddCustomer = () => {
+  if (newCustomer.value.name && newCustomer.value.email && newCustomer.value.phone) {
+    customers.value.push({ ...newCustomer.value, id: Date.now() });
+    newCustomer.value = { name: '', address: '', email: '', phone: '' };
+    const modal = document.getElementById('addCustomerModal');
+    const modalInstance = bootstrap.Modal.getInstance(modal);
+    modalInstance.hide(); // Ferme la fenêtre modale après l'ajout
+  } else {
+    alert('Please fill out all required fields.');
   }
+};
+
+const editCustomer = (customer) => {
+  editingCustomer.value = { ...customer };
+};
+
+const closeEditModal = () => {
+  editingCustomer.value = null;
+};
+
+const saveCustomer = () => {
+  const index = customers.value.findIndex(c => c.id === editingCustomer.value.id);
+  if (index !== -1) {
+    customers.value[index] = editingCustomer.value;
+    alert('Changes saved successfully!');
+    closeEditModal();
+  }
+};
+
+const removeCustomer = (id) => {
+  customers.value = customers.value.filter(c => c.id !== id);
+};
+
+const listCustomer = (customer) => {
+  selectedCustomer.value = { ...customer };
+};
+
+const clearSelection = () => {
+  selectedCustomer.value = null;
 };
 </script>
 
 <style scoped>
-/* Styles to make the design chic */
-h2 {
-  font-weight: bold;
-  color: #333;
-}
-
-.card {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.table {
-  width: 100%;
-  margin-bottom: 1rem;
-  color: #212529;
-}
-
-button i {
-  margin-right: 5px;
-}
-
-.modal.show {
-  display: block;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.modal-dialog {
-  max-width: 600px;
-  margin: 1.75rem auto;
-}
+/* Styles personnalisés ici */
 </style>

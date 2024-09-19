@@ -6,6 +6,7 @@ import Order from '../components/Order.vue'
 import OrderDetail from '../components/OrderDetail.vue'
 import Payment from '../components/Payment.vue'  // Importer le composant Payment
 
+
 const routes = [
   { path: '/', component: Home },
   { path: '/customers', component: Customer },
