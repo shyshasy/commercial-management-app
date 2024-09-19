@@ -31,13 +31,13 @@
           <td>{{ customer.phone }}</td>
           <td>
             <button @click="listCustomer(customer)" class="btn btn-info btn-sm me-2">
-              <i class="fas fa-eye"></i> List
+              <i class="fas fa-eye"></i> 
             </button>
             <button @click="editCustomer(customer)" class="btn btn-warning btn-sm me-2">
-              <i class="fas fa-edit"></i> Edit
+              <i class="fas fa-edit"></i> 
             </button>
             <button @click="removeCustomer(customer.id)" class="btn btn-danger btn-sm">
-              <i class="fas fa-trash-alt"></i> Delete
+              <i class="fas fa-trash-alt"></i> 
             </button>
           </td>
         </tr>

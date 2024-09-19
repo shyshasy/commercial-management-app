@@ -32,13 +32,13 @@
             <td>{{ product.status }}</td>
             <td>
               <button @click="listProduct(product)" class="btn btn-info btn-sm me-2">
-                <i class="fas fa-eye"></i> View
+                <i class="fas fa-eye"></i> 
               </button>
               <button @click="editProduct(product)" class="btn btn-warning btn-sm me-2">
-                <i class="fas fa-edit"></i> Edit
+                <i class="fas fa-edit"></i> 
               </button>
               <button @click="removeProduct(product.id)" class="btn btn-danger btn-sm">
-                <i class="fas fa-trash"></i> Delete
+                <i class="fas fa-trash"></i> 
               </button>
             </td>
           </tr>
