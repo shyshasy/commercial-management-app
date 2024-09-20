@@ -45,18 +45,18 @@
 import { ref } from 'vue';
 
 const orders = ref([
-  { date: '25/07/2024', customer: 'John Doe', address: '123 Main St', trackNumber: 'TN001', status: 'Shipped' },
-  { date: '26/07/2024', customer: 'Jane Smith', address: '456 Oak St', trackNumber: 'TN002', status: 'Delivered' },
+  { date: '07/25/2024', customer: 'John Doe', address: '123 Main St', trackNumber: 'TN001', status: 'Shipped' },
+  { date: '07/26/2024', customer: 'Jane Smith', address: '456 Oak St', trackNumber: 'TN002', status: 'Delivered' },
 ]);
 
 const deleteOrder = (index) => {
-  // Vérifie si l'ordre à supprimer est le dernier
+  // Check if the order to delete is the last one
   if (orders.value.length <= 1) {
-    alert("Vous ne pouvez pas supprimer le dernier ordre.");
+    alert("You cannot delete the last order.");
     return;
   }
 
-  // Confirme la suppression
+  // Confirm deletion
   if (confirm(`Are you sure you want to delete order #${index + 1}?`)) {
     orders.value.splice(index, 1);
   }
@@ -72,5 +72,5 @@ const editOrder = (index) => {
 </script>
 
 <style scoped>
-/* Ajoutez votre style ici si nécessaire */
+/* Add your styles here if necessary */
 </style>

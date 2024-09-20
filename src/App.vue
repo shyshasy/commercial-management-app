@@ -43,28 +43,28 @@ export default {
 </script>
 
 <style scoped>
-/* Style chic et moderne pour la navbar */
+
 .navbar {
-  background-color: #f5f5f5; /* Couleur douce et élégante */
-  font-family: 'Poppins', sans-serif; /* Police moderne et élégante */
+  background-color: #f5f5f5; 
+  font-family: 'Poppins', sans-serif; 
   padding: 1rem 2rem;
-  border-bottom: 1px solid #ddd; /* Ligne subtile pour un look soigné */
+  border-bottom: 1px solid #ddd; 
 }
 
 .nav-link {
   font-weight: 500;
-  color: #555; /* Ton sobre et chic pour le texte */
-  transition: color 0.3s ease, transform 0.3s ease; /* Effet de transition chic */
+  color: #555; 
+  transition: color 0.3s ease, transform 0.3s ease; /
 }
 
 .nav-link:hover {
-  color: #ff6f61; /* Couleur vive et jeune pour l'effet hover */
-  transform: scale(1.05); /* Effet zoom léger pour un look moderne */
+  color: #ff6f61; 
+  transform: scale(1.05); 
 }
 
 .nav-link.active {
-  color: rgba(144, 238, 144, 0.7); /* Vert clair transparent pour l'onglet actif */
-  border-bottom: 2px solid rgba(144, 238, 144, 0.7); /* Soulignement subtil et transparent */
+  color: rgba(144, 238, 144, 0.7); 
+  border-bottom: 2px solid rgba(144, 238, 144, 0.7); 
 }
 
 .navbar-brand {
@@ -74,7 +74,7 @@ export default {
 }
 
 .navbar-brand.active {
-  color: rgba(144, 238, 144, 0.7); /* Appliquer la même couleur verte pour Home actif */
+  color: rgba(144, 238, 144, 0.7);
 }
 
 .navbar-brand:hover {
@@ -86,7 +86,7 @@ export default {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%28255, 111, 97, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* Ajouter une ombre douce à la navbar */
+
 .navbar {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -99,12 +99,11 @@ i {
   margin-right: 8px;
 }
 
-/* Transition pour un effet jeune */
 .navbar-toggler {
   transition: transform 0.3s ease;
 }
 
 .navbar-toggler:hover {
-  transform: rotate(90deg); /* Animation chic et moderne */
+  transform: rotate(90deg); 
 }
 </style>

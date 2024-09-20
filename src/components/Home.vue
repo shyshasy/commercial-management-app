@@ -59,7 +59,7 @@
   </template>
   
   <style scoped>
-  /* Styles for the homepage */
+  
   .home-container {
     padding: 50px 0;
   }

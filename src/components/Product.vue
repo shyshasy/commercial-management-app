@@ -253,10 +253,10 @@ const clearSelection = () => {
   
   <style scoped>
   .custom-table {
-    border: 2px solid #007bff; /* Bordure bleue */
-    border-radius: 10px; /* Coins arrondis */
-    overflow: hidden; /* Contenu du tableau bien contenu */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    border: 2px solid #007bff; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
   }
   </style>
   

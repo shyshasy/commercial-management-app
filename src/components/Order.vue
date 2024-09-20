@@ -86,7 +86,7 @@
   };
   
   const removeDetail = (index) => {
-    // Empêche la suppression si c'est le dernier détail
+    
     if (order.value.details.length <= 1) {
       alert("You cannot delete the last order detail..");
       return;
@@ -101,7 +101,7 @@
   
   const submitOrder = () => {
     if (isValidOrder.value) {
-      // Logique pour soumettre la commande
+      
       alert('Order submitted!');
     } else {
       alert('Please fill in all fields correctly.');
