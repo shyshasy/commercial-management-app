@@ -9,7 +9,7 @@ import OrdersList from '../components/OrderList.vue'
 
 const routes = [
     { path: '/', component: Home },
-    { path: '/customer', component: Customer },
+    { path: '/customers', component: Customer },
     { path: '/products', component: Product },
     { path: '/OrderList', component: OrdersList },  // Mise à jour du nom de la route
     { path: '/order', component: Order },
