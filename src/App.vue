@@ -54,7 +54,7 @@ export default {
 .nav-link {
   font-weight: 500;
   color: #555; 
-  transition: color 0.3s ease, transform 0.3s ease; /
+  transition: color 0.3s ease, transform 0.3s ease; 
 }
 
 .nav-link:hover {
