@@ -8,7 +8,8 @@
       </button>
   
       <!-- Product list in a Bootstrap table -->
-      <table class="table table-striped mt-4">
+      <table class="table table-striped table-bordered mt-4">
+
         <thead>
           <tr>
             <th>Product Name</th>
@@ -149,75 +150,113 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue';
-  
-  // Variables réactives
-  const products = ref([]);
-  const newProduct = ref({
-    name: '',
-    description: '',
-    price: '',
-    stock: '',
-    category: '',
-    barcode: '',
-    status: ''
-  });
-  const selectedProduct = ref(null);
-  const editingProduct = ref(null);
-  const showAddModal = ref(false);
-  
-  // Fonctions
-  const openAddModal = () => {
-    showAddModal.value = true;
-  };
-  
-  const closeAddModal = () => {
-    showAddModal.value = false;
-  };
-  
-  const addProduct = () => {
-    if (newProduct.value.name && newProduct.value.price && newProduct.value.stock) {
-      products.value.push({ ...newProduct.value, id: Date.now() });
-      newProduct.value = { name: '', description: '', price: '', stock: '', category: '', barcode: '', status: '' };
-      closeAddModal();
-    } else {
-      alert('Please fill in all required fields.');
-    }
-  };
-  
-  const editProduct = (product) => {
-    editingProduct.value = { ...product };
-  };
-  
-  const closeEditModal = () => {
-    editingProduct.value = null;
-  };
-  
-  const saveProduct = () => {
-    const index = products.value.findIndex(p => p.id === editingProduct.value.id);
-    if (index !== -1) {
-      products.value[index] = editingProduct.value;
-      alert('Changes saved successfully!');
-    }
-    closeEditModal();
-  };
-  
-  const removeProduct = (id) => {
-    if (confirm('Are you sure you want to delete this product?')) {
-      products.value = products.value.filter(product => product.id !== id);
-    }
-  };
-  
-  const listProduct = (product) => {
-    selectedProduct.value = product;
-  };
-  
-  const clearSelection = () => {
-    selectedProduct.value = null;
-  };
-  </script>
+import { ref } from 'vue';
+
+// Variables réactives
+const products = ref([
+  {
+    id: 1,
+    name: 'Laptop Pro',
+    description: 'High-end laptop for professional use',
+    price: '1500',
+    stock: 10,
+    category: 'Electronics',
+    barcode: '123456789',
+    status: 'Available'
+  },
+  {
+    id: 2,
+    name: 'Smartphone X',
+    description: 'Latest smartphone with advanced features',
+    price: '999',
+    stock: 50,
+    category: 'Electronics',
+    barcode: '987654321',
+    status: 'Out of Stock'
+  },
+  {
+    id: 3,
+    name: 'Wireless Earbuds',
+    description: 'Noise-cancelling wireless earbuds',
+    price: '199',
+    stock: 30,
+    category: 'Accessories',
+    barcode: '456789123',
+    status: 'Available'
+  }
+]);
+
+const newProduct = ref({
+  name: '',
+  description: '',
+  price: '',
+  stock: '',
+  category: '',
+  barcode: '',
+  status: ''
+});
+const selectedProduct = ref(null);
+const editingProduct = ref(null);
+const showAddModal = ref(false);
+
+// Fonctions
+const openAddModal = () => {
+  showAddModal.value = true;
+};
+
+const closeAddModal = () => {
+  showAddModal.value = false;
+};
+
+const addProduct = () => {
+  if (newProduct.value.name && newProduct.value.price && newProduct.value.stock) {
+    products.value.push({ ...newProduct.value, id: Date.now() });
+    newProduct.value = { name: '', description: '', price: '', stock: '', category: '', barcode: '', status: '' };
+    closeAddModal();
+  } else {
+    alert('Please fill in all required fields.');
+  }
+};
+
+const editProduct = (product) => {
+  editingProduct.value = { ...product };
+};
+
+const closeEditModal = () => {
+  editingProduct.value = null;
+};
+
+const saveProduct = () => {
+  const index = products.value.findIndex(p => p.id === editingProduct.value.id);
+  if (index !== -1) {
+    products.value[index] = editingProduct.value;
+    alert('Changes saved successfully!');
+  }
+  closeEditModal();
+};
+
+const removeProduct = (id) => {
+  if (confirm('Are you sure you want to delete this product?')) {
+    products.value = products.value.filter(product => product.id !== id);
+  }
+};
+
+const listProduct = (product) => {
+  selectedProduct.value = product;
+};
+
+const clearSelection = () => {
+  selectedProduct.value = null;
+};
+</script>
+
   
   <style scoped>
-  /* Add any additional custom styles here */
+  .custom-table {
+    border: 2px solid #007bff; /* Bordure bleue */
+    border-radius: 10px; /* Coins arrondis */
+    overflow: hidden; /* Contenu du tableau bien contenu */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  }
   </style>
   

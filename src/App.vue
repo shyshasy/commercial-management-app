@@ -19,7 +19,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/orders">
+              <router-link class="nav-link" to="/OrderList">
                 <i class="fas fa-shopping-cart"></i> Order
               </router-link>
             </li>
