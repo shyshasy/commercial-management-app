@@ -8,14 +8,15 @@ import Payment from '../components/Payment.vue'  // Importer le composant Paymen
 import OrdersList from '../components/OrderList.vue'
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/customers', component: Customer },
-  { path: '/products', component: Product },
-  { path: '/OrderList', component: OrdersList },
-  { path: '/orders', component: Order },
-  { path: '/orders/:id', name: 'OrderDetail', component: OrderDetail, props: true },
-  { path: '/payments', component: Payment }  // Ajouter la route pour les paiements
-]
+    { path: '/', component: Home },
+    { path: '/customers', component: Customer },
+    { path: '/products', component: Product },
+    { path: '/order-list', component: OrdersList },  // Mise à jour du nom de la route
+    { path: '/orders', component: Order },
+    { path: '/orders/:id', name: 'OrderDetail', component: OrderDetail, props: true },
+    { path: '/payments', component: Payment }
+  ];
+  
 
 const router = createRouter({
   history: createWebHistory(),
