@@ -5,16 +5,13 @@
           <a class="nav-link active" href="#">Orders</a>
         </li>
       </ul>
-      <!-- Buttons for Submit and Return to Home positioned in the top-right corner -->
       <div class="form-buttons">
-        <!-- Utiliser 'router-link' pour une navigation facile -->
         <router-link to="/OrderList" class="btn btn-secondary me-2">Return to OrderList</router-link>
         <button type="submit" class="btn btn-success" @click="submitOrder">Submit</button>
       </div>
-  
+    
       <form @submit.prevent="submitOrder" class="mt-4">
         <div class="row">
-          <!-- Left Column -->
           <div class="col-md-6">
             <div class="form-group mb-3">
               <label for="date">Date</label>
@@ -29,7 +26,6 @@
               <input type="text" class="form-control" id="deliveryAddress" v-model="order.deliveryAddress">
             </div>
           </div>
-          <!-- Right Column -->
           <div class="col-md-6">
             <div class="form-group mb-3">
               <label for="trackNumber">Track Number</label>
@@ -90,6 +86,11 @@
   };
   
   const removeDetail = (index) => {
+    // Empêche la suppression si c'est le dernier détail
+    if (order.value.details.length <= 1) {
+      alert("You cannot delete the last order detail..");
+      return;
+    }
     order.value.details.splice(index, 1);
   };
   
@@ -100,7 +101,7 @@
   
   const submitOrder = () => {
     if (isValidOrder.value) {
-      // Logic for submitting the order
+      // Logique pour soumettre la commande
       alert('Order submitted!');
     } else {
       alert('Please fill in all fields correctly.');
@@ -121,14 +122,6 @@
     top: 0;
     right: 0;
     gap: 0.5rem;
-  }
-  
-  .custom-buttons {
-    position: absolute;
-    top: -20px;
-    right: 0;
-    padding: 1rem;
-    z-index: 10;
   }
   </style>
   

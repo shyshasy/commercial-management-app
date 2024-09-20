@@ -1,18 +1,18 @@
 <template>
     <div>
-      <h2>Détails de la Commande</h2>
-      <!-- Formulaire pour ajouter/modifier les détails d'une commande -->
+      <h2>Order Details</h2>
+      <!-- Form to add/edit order details -->
       <div class="mb-3">
-        <input v-model="newDetail.product" class="form-control mb-2" placeholder="Produit">
-        <input v-model="newDetail.quantity" type="number" class="form-control mb-2" placeholder="Quantité">
-        <input v-model="newDetail.price" type="number" step="0.01" class="form-control mb-2" placeholder="Prix">
-        <button @click="addDetail" class="btn btn-primary">Ajouter Détail</button>
+        <input v-model="newDetail.product" class="form-control mb-2" placeholder="Product">
+        <input v-model="newDetail.quantity" type="number" class="form-control mb-2" placeholder="Quantity">
+        <input v-model="newDetail.price" type="number" step="0.01" class="form-control mb-2" placeholder="Price">
+        <button @click="addDetail" class="btn btn-primary">Add Detail</button>
       </div>
-      <!-- Liste des détails de la commande -->
+      <!-- List of order details -->
       <ul class="list-group">
         <li v-for="detail in details" :key="detail.id" class="list-group-item d-flex justify-content-between align-items-center">
           <span>{{ detail.product }} - {{ detail.quantity }} - {{ detail.price.toFixed(2) }} €</span>
-          <button @click="removeDetail(detail.id)" class="btn btn-danger btn-sm">Supprimer</button>
+          <button @click="removeDetail(detail.id)" class="btn btn-danger btn-sm">Remove</button>
         </li>
       </ul>
     </div>
@@ -21,7 +21,7 @@
   <script setup>
   import { ref, defineProps } from 'vue';
   
-  // Définition des props
+  // Define props
   const props = defineProps({
     orderId: {
       type: Number,
@@ -29,7 +29,7 @@
     }
   });
   
-  // Déclaration des variables réactives
+  // Declare reactive variables
   const newDetail = ref({
     product: '',
     quantity: '',
@@ -37,13 +37,13 @@
   });
   const details = ref([]);
   
-  // Méthodes pour gérer les détails de la commande
+  // Methods to manage order details
   const addDetail = () => {
     if (newDetail.value.product && newDetail.value.quantity && newDetail.value.price) {
       details.value.push({ ...newDetail.value, id: Date.now() });
       newDetail.value = { product: '', quantity: '', price: '' };
     } else {
-      alert('Veuillez remplir tous les champs.');
+      alert('Please fill in all fields.');
     }
   };
   
@@ -53,6 +53,5 @@
   </script>
   
   <style scoped>
-  /* Styles pour le composant OrderDetail */
+  /* Styles for the OrderDetail component */
   </style>
-  
