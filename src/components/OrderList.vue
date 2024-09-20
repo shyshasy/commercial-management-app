@@ -2,11 +2,11 @@
     <div class="container mt-5">
       <div class="d-flex justify-content-end mb-3">
         <router-link to="/Orders">
-          <button class="btn btn-primary">Add New Order</button>
+          <button class="btn btn-success mb-3">Add New Order</button>
         </router-link>
       </div>
       <h2 class="mb-4">List of Orders</h2>
-      <table class="table table-striped">
+      <table class="table table-striped table-bordered mt-4">
         <thead>
           <tr>
             <th>Date</th>
@@ -25,13 +25,13 @@
             <td>{{ order.trackNumber }}</td>
             <td>{{ order.status }}</td>
             <td class="action-buttons">
-              <button class="btn btn-sm btn-secondary me-2" @click="viewOrder(index)">
+              <button  class="btn btn-info btn-sm me-2"@click="viewOrder(index)">
                 <i class="fas fa-eye"></i> 
               </button>
-              <button class="btn btn-sm btn-info me-2" @click="editOrder(index)">
+              <button class="btn btn-warning btn-sm me-2" @click="editOrder(index)">
                 <i class="fas fa-edit"></i> 
               </button>
-              <button class="btn btn-sm btn-danger" @click="deleteOrder(index)">
+              <button  class="btn btn-danger btn-sm" @click="deleteOrder(index)">
                 <i class="fas fa-trash-alt"></i> 
               </button>
             </td>
@@ -65,9 +65,7 @@
   </script>
   
   <style scoped>
-  .action-buttons {
-    display: flex;
-    gap: 10px; /* Add space between buttons */
-  }
+ 
+  
   </style>
   
