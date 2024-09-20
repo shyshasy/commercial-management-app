@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
@@ -8,7 +8,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['vue-router']  // Externalize vue-router to avoid build issues
+      // No externalization of vue-router
     }
   }
-});
+})
