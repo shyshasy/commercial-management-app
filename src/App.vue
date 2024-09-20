@@ -23,11 +23,7 @@
                 <i class="fas fa-shopping-cart"></i> Order
               </router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/payments">
-                <i class="fas fa-credit-card"></i> Payment
-              </router-link>
-            </li>
+        
           </ul>
         </div>
       </div>

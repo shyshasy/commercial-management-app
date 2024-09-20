@@ -8,14 +8,13 @@
     </button>
 
     <!-- Customer list in a Bootstrap table -->
-    <table class="table table-striped mt-4">
+    <table class="table table-striped table-bordered mt-4">
       <thead>
         <tr>
           <th>Name</th>
           <th>Email</th>
           <th>Phone</th>
           <th>Address</th>
-          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -25,16 +24,15 @@
           <td>{{ customer.email }}</td>
           <td>{{ customer.phone }}</td>
           <td>{{ customer.address }}</td>
-          <td>{{ customer.status }}</td>
           <td>
             <button @click="listCustomer(customer)" class="btn btn-info btn-sm me-2">
-              <i class="fas fa-eye"></i> 
+              <i class="fas fa-eye"></i>
             </button>
             <button @click="editCustomer(customer)" class="btn btn-warning btn-sm me-2">
-              <i class="fas fa-edit"></i> 
+              <i class="fas fa-edit"></i>
             </button>
             <button @click="removeCustomer(customer.id)" class="btn btn-danger btn-sm">
-              <i class="fas fa-trash"></i> 
+              <i class="fas fa-trash"></i>
             </button>
           </td>
         </tr>
@@ -52,11 +50,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <input v-model="newCustomer.name" class="form-control mb-2" placeholder="Customer Name">
+            <input v-model="newCustomer.name" class="form-control mb-2" placeholder="Name">
             <input v-model="newCustomer.email" class="form-control mb-2" placeholder="Email">
             <input v-model="newCustomer.phone" class="form-control mb-2" placeholder="Phone">
             <input v-model="newCustomer.address" class="form-control mb-2" placeholder="Address">
-            <input v-model="newCustomer.status" class="form-control mb-2" placeholder="Status">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeAddModal">Close</button>
@@ -81,7 +78,6 @@
             <p><strong>Email:</strong> {{ selectedCustomer.email }}</p>
             <p><strong>Phone:</strong> {{ selectedCustomer.phone }}</p>
             <p><strong>Address:</strong> {{ selectedCustomer.address }}</p>
-            <p><strong>Status:</strong> {{ selectedCustomer.status }}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="clearSelection">Close</button>
@@ -103,7 +99,7 @@
           <div class="modal-body">
             <div class="mb-2">
               <label>Name</label>
-              <input v-model="editingCustomer.name" class="form-control" placeholder="Customer Name">
+              <input v-model="editingCustomer.name" class="form-control" placeholder="Name">
             </div>
             <div class="mb-2">
               <label>Email</label>
@@ -116,10 +112,6 @@
             <div class="mb-2">
               <label>Address</label>
               <input v-model="editingCustomer.address" class="form-control" placeholder="Address">
-            </div>
-            <div class="mb-2">
-              <label>Status</label>
-              <input v-model="editingCustomer.status" class="form-control" placeholder="Status">
             </div>
           </div>
           <div class="modal-footer">
@@ -135,20 +127,35 @@
 <script setup>
 import { ref } from 'vue';
 
-// Variables réactives
-const customers = ref([]);
+// Reactive variables
+const customers = ref([
+  {
+    id: 1,
+    name: 'John Doe',
+    email: 'john@example.com',
+    phone: '123-456-7890',
+    address: '123 Main St'
+  },
+  {
+    id: 2,
+    name: 'Jane Smith',
+    email: 'jane@example.com',
+    phone: '987-654-3210',
+    address: '456 Elm St'
+  }
+]);
+
 const newCustomer = ref({
   name: '',
   email: '',
   phone: '',
-  address: '',
-  status: ''
+  address: ''
 });
 const selectedCustomer = ref(null);
 const editingCustomer = ref(null);
 const showAddModal = ref(false);
 
-// Fonctions
+// Functions
 const openAddModal = () => {
   showAddModal.value = true;
 };
@@ -158,9 +165,9 @@ const closeAddModal = () => {
 };
 
 const addCustomer = () => {
-  if (newCustomer.value.name && newCustomer.value.email && newCustomer.value.phone) {
+  if (newCustomer.value.name && newCustomer.value.email) {
     customers.value.push({ ...newCustomer.value, id: Date.now() });
-    newCustomer.value = { name: '', email: '', phone: '', address: '', status: '' };
+    newCustomer.value = { name: '', email: '', phone: '', address: '' };
     closeAddModal();
   } else {
     alert('Please fill in all required fields.');
@@ -200,5 +207,10 @@ const clearSelection = () => {
 </script>
 
 <style scoped>
-/* Add any additional custom styles here */
+.custom-table {
+  border: 2px solid #007bff; /* Bordure bleue */
+  border-radius: 10px; /* Coins arrondis */
+  overflow: hidden; /* Contenu du tableau bien contenu */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+}
 </style>
