@@ -12,7 +12,7 @@ const routes = [
     { path: '/customers', component: Customer },
     { path: '/products', component: Product },
     { path: '/OrderList', component: OrdersList },  // Mise à jour du nom de la route
-    { path: '/order', component: Order },
+    { path: '/orders', component: Order },
     { path: '/orders/:id', name: 'OrderDetail', component: OrderDetail, props: true },
     { path: '/payments', component: Payment }
   ];
