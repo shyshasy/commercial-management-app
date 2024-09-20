@@ -1,79 +1,19 @@
 <template>
-    <div class="container">
-      <h2 class="mb-4 mt-3">Gestion des Paiements</h2> <!-- Titre de la page -->
-  
-      <!-- Bouton pour ouvrir la fenêtre modale d'ajout -->
-      <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#paymentModal">
-        <i class="fas fa-plus-circle"></i> Ajouter Paiement
+    <div class="container mt-5">
+      <h2>Gestion des Paiements</h2>
+
+      <button class="btn btn-success mb-3" @click="openAddModal">
+        <i class="fas fa-plus"></i> Ajouter Nouveau Paiement
       </button>
-  
-      <!-- Modal pour ajouter ou modifier un paiement -->
-      <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="paymentModalLabel">{{ isEditing.value ? 'Modifier Paiement' : 'Ajouter Paiement' }}</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <label for="date">Date du Paiement</label>
-              <input v-model="newPayment.date" id="date" class="form-control" placeholder="Date du Paiement">
-  
-              <label for="amount" class="mt-2">Montant</label>
-              <input v-model="newPayment.amount" id="amount" class="form-control mt-2" placeholder="Montant">
-  
-              <label for="method" class="mt-2">Méthode de Paiement</label>
-              <input v-model="newPayment.method" id="method" class="form-control mt-2" placeholder="Méthode de Paiement">
-  
-              <label for="orderId" class="mt-2">ID de Commande</label>
-              <input v-model="newPayment.orderId" id="orderId" class="form-control mt-2" placeholder="ID de Commande">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-              <button @click="isEditing.value ? updatePayment() : addPayment()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                <i class="fas fa-save"></i> {{ isEditing.value ? 'Modifier' : 'Ajouter' }} Paiement
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Modal pour lister un paiement -->
-      <div class="modal fade" id="listPaymentModal" tabindex="-1" aria-labelledby="listPaymentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="listPaymentModalLabel">Détails du Paiement</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <label for="listDate">Date du Paiement</label>
-              <input v-model="currentPayment.date" id="listDate" class="form-control" readonly>
-  
-              <label for="listAmount" class="mt-2">Montant</label>
-              <input v-model="currentPayment.amount" id="listAmount" class="form-control mt-2" readonly>
-  
-              <label for="listMethod" class="mt-2">Méthode de Paiement</label>
-              <input v-model="currentPayment.method" id="listMethod" class="form-control mt-2" readonly>
-  
-              <label for="listOrderId" class="mt-2">ID de Commande</label>
-              <input v-model="currentPayment.orderId" id="listOrderId" class="form-control mt-2" readonly>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Liste des paiements sous forme de tableau -->
-      <table class="table table-striped">
+
+      <table class="table table-striped mt-4">
         <thead>
           <tr>
             <th>Date</th>
             <th>Montant</th>
             <th>Méthode</th>
             <th>ID de Commande</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -83,86 +23,160 @@
             <td>{{ payment.amount }}</td>
             <td>{{ payment.method }}</td>
             <td>{{ payment.orderId }}</td>
+            <td>{{ payment.status }}</td>
             <td>
-              <!-- Bouton Lister avec l'icône FontAwesome -->
-              <button @click="listPayment(payment)" class="btn btn-info btn-sm me-1" data-bs-toggle="modal" data-bs-target="#listPaymentModal">
-                <i class="fas fa-eye"></i> 
+              <button @click="listPayment(payment)" class="btn btn-info btn-sm me-2">
+                <i class="fas fa-eye"></i>
               </button>
-              <!-- Bouton Modifier avec l'icône FontAwesome -->
-              <button @click="editPayment(payment)" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                <i class="fas fa-edit"></i> 
+              <button @click="editPayment(payment)" class="btn btn-warning btn-sm me-2">
+                <i class="fas fa-edit"></i>
               </button>
-              <!-- Bouton Supprimer avec l'icône FontAwesome -->
               <button @click="removePayment(payment.id)" class="btn btn-danger btn-sm">
-                <i class="fas fa-trash"></i> 
+                <i class="fas fa-trash"></i>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
+
+      <div v-if="showAddModal" class="modal show d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Ajouter Nouveau Paiement</h5>
+              <button type="button" class="close" @click="closeAddModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input v-model="newPayment.date" class="form-control mb-2" placeholder="Date">
+              <input v-model="newPayment.amount" class="form-control mb-2" placeholder="Montant">
+              <input v-model="newPayment.method" class="form-control mb-2" placeholder="Méthode de Paiement">
+              <input v-model="newPayment.orderId" class="form-control mb-2" placeholder="ID de Commande">
+              <input v-model="newPayment.status" class="form-control mb-2" placeholder="Statut">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="closeAddModal">Fermer</button>
+              <button type="button" class="btn btn-primary" @click="addPayment">Ajouter Paiement</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="selectedPayment" class="modal show d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Détails du Paiement</h5>
+              <button type="button" class="close" @click="clearSelection">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><strong>Date:</strong> {{ selectedPayment.date }}</p>
+              <p><strong>Montant:</strong> {{ selectedPayment.amount }}</p>
+              <p><strong>Méthode:</strong> {{ selectedPayment.method }}</p>
+              <p><strong>ID de Commande:</strong> {{ selectedPayment.orderId }}</p>
+              <p><strong>Status:</strong> {{ selectedPayment.status }}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="clearSelection">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="editingPayment" class="modal show d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modifier Paiement</h5>
+              <button type="button" class="close" @click="closeEditModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input v-model="editingPayment.date" class="form-control mb-2" placeholder="Date">
+              <input v-model="editingPayment.amount" class="form-control mb-2" placeholder="Montant">
+              <input v-model="editingPayment.method" class="form-control mb-2" placeholder="Méthode de Paiement">
+              <input v-model="editingPayment.orderId" class="form-control mb-2" placeholder="ID de Commande">
+              <input v-model="editingPayment.status" class="form-control mb-2" placeholder="Statut">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="closeEditModal">Fermer</button>
+              <button type="button" class="btn btn-primary" @click="savePayment">Enregistrer les Changements</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref } from 'vue';
-  
-  const newPayment = ref({
-    date: '',
-    amount: '',
-    method: '',
-    orderId: ''
-  });
-  
-  const currentPayment = ref({
-    date: '',
-    amount: '',
-    method: '',
-    orderId: ''
-  });
-  
-  const payments = ref([]);
-  const isEditing = ref(false); // Flag pour vérifier si on modifie ou ajoute
-  
-  function addPayment() {
-    if (newPayment.value.date && newPayment.value.amount && newPayment.value.method && newPayment.value.orderId) {
-      payments.value.push({ ...newPayment.value, id: Date.now() });
-      newPayment.value = { date: '', amount: '', method: '', orderId: '' };
-    }
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const payments = ref([]);
+const newPayment = ref({
+  date: '',
+  amount: '',
+  method: '',
+  orderId: '',
+  status: ''
+});
+const selectedPayment = ref(null);
+const editingPayment = ref(null);
+const showAddModal = ref(false);
+
+const openAddModal = () => {
+  showAddModal.value = true;
+};
+
+const closeAddModal = () => {
+  showAddModal.value = false;
+};
+
+const addPayment = () => {
+  if (newPayment.value.date && newPayment.value.amount) {
+    payments.value.push({ ...newPayment.value, id: Date.now() });
+    newPayment.value = { date: '', amount: '', method: '', orderId: '', status: '' };
+    closeAddModal();
+  } else {
+    alert('Veuillez remplir tous les champs requis.');
   }
-  
-  function editPayment(payment) {
-    isEditing.value = true;
-    newPayment.value = { ...payment };
+};
+
+const editPayment = (payment) => {
+  editingPayment.value = { ...payment };
+};
+
+const closeEditModal = () => {
+  editingPayment.value = null;
+};
+
+const savePayment = () => {
+  const index = payments.value.findIndex(p => p.id === editingPayment.value.id);
+  if (index !== -1) {
+    payments.value[index] = editingPayment.value;
+    alert('Modifications enregistrées avec succès !');
   }
-  
-  function updatePayment() {
-    const paymentIndex = payments.value.findIndex(p => p.id === newPayment.value.id);
-    if (paymentIndex !== -1) {
-      payments.value.splice(paymentIndex, 1, { ...newPayment.value });
-    }
-    isEditing.value = false;
-    newPayment.value = { date: '', amount: '', method: '', orderId: '' };
-  }
-  
-  function listPayment(payment) {
-    currentPayment.value = { ...payment };
-  }
-  
-  function removePayment(id) {
+  closeEditModal();
+};
+
+const removePayment = (id) => {
+  if (confirm('Êtes-vous sûr de vouloir supprimer ce paiement ?')) {
     payments.value = payments.value.filter(payment => payment.id !== id);
   }
-  </script>
-  
-  <style scoped>
-  /* Ajout de styles spécifiques si nécessaire */
-  .me-1 {
-    margin-right: 8px; /* Spacing between buttons */
-  }
-  .mb-4 {
-    margin-bottom: 20px;
-  }
-  .mt-3 {
-    margin-top: 20px;
-  }
-  </style>
-  
+};
+
+const listPayment = (payment) => {
+  selectedPayment.value = payment;
+};
+
+const clearSelection = () => {
+  selectedPayment.value = null;
+};
+</script>
+
+<style scoped>
+/* Ajoutez ici vos styles personnalisés */
+</style>
