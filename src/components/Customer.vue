@@ -1,34 +1,31 @@
 <template>
   <div class="container mt-5">
-    <!-- En-tête -->
-    <div class="d-flex align-items-center mb-4">
-      <h2>Customer Management</h2>
-    </div>
+    <h2>Customer Management</h2>
 
-    <!-- Bouton pour ouvrir la fenêtre modale d'ajout -->
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
-      <i class="fas fa-user-plus me-2"></i> Add New Customer
+    <!-- Button to open Add Customer Modal -->
+    <button class="btn btn-success mb-3" @click="openAddModal">
+      <i class="fas fa-plus"></i> Add New Customer
     </button>
 
-    <!-- Tableau Bootstrap pour afficher les clients -->
-    <table class="table table-striped">
+    <!-- Customer list in a Bootstrap table -->
+    <table class="table table-striped mt-4">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Address</th>
-          <th scope="col">Email</th>
-          <th scope="col">Phone</th>
-          <th scope="col">Actions</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(customer, index) in customers" :key="customer.id">
-          <th scope="row">{{ index + 1 }}</th>
+        <tr v-for="customer in customers" :key="customer.id">
           <td>{{ customer.name }}</td>
-          <td>{{ customer.address }}</td>
           <td>{{ customer.email }}</td>
           <td>{{ customer.phone }}</td>
+          <td>{{ customer.address }}</td>
+          <td>{{ customer.status }}</td>
           <td>
             <button @click="listCustomer(customer)" class="btn btn-info btn-sm me-2">
               <i class="fas fa-eye"></i> 
@@ -37,48 +34,39 @@
               <i class="fas fa-edit"></i> 
             </button>
             <button @click="removeCustomer(customer.id)" class="btn btn-danger btn-sm">
-              <i class="fas fa-trash-alt"></i> 
+              <i class="fas fa-trash"></i> 
             </button>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <!-- Modal d'ajout de client -->
-    <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+    <!-- Modal for adding a customer -->
+    <div v-if="showAddModal" class="modal show d-block" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addCustomerModalLabel">Add a New Customer</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title">Add New Customer</h5>
+            <button type="button" class="close" aria-label="Close" @click="closeAddModal">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
-            <div class="mb-3">
-              <label for="newCustomerName" class="form-label">Name</label>
-              <input v-model="newCustomer.name" id="newCustomerName" class="form-control" placeholder="Name" />
-            </div>
-            <div class="mb-3">
-              <label for="newCustomerAddress" class="form-label">Address</label>
-              <input v-model="newCustomer.address" id="newCustomerAddress" class="form-control" placeholder="Address" />
-            </div>
-            <div class="mb-3">
-              <label for="newCustomerEmail" class="form-label">Email</label>
-              <input v-model="newCustomer.email" id="newCustomerEmail" class="form-control" placeholder="Email" />
-            </div>
-            <div class="mb-3">
-              <label for="newCustomerPhone" class="form-label">Phone</label>
-              <input v-model="newCustomer.phone" id="newCustomerPhone" class="form-control" placeholder="Phone" />
-            </div>
+            <input v-model="newCustomer.name" class="form-control mb-2" placeholder="Customer Name">
+            <input v-model="newCustomer.email" class="form-control mb-2" placeholder="Email">
+            <input v-model="newCustomer.phone" class="form-control mb-2" placeholder="Phone">
+            <input v-model="newCustomer.address" class="form-control mb-2" placeholder="Address">
+            <input v-model="newCustomer.status" class="form-control mb-2" placeholder="Status">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="confirmAddCustomer">Add Customer</button>
+            <button type="button" class="btn btn-secondary" @click="closeAddModal">Close</button>
+            <button type="button" class="btn btn-primary" @click="addCustomer">Add Customer</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Modal fenêtre pour afficher les détails du client (List) -->
+    <!-- Modal for listing a customer -->
     <div v-if="selectedCustomer" class="modal show d-block" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -89,22 +77,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="mb-3">
-              <label for="viewCustomerName" class="form-label">Name</label>
-              <input v-model="selectedCustomer.name" id="viewCustomerName" class="form-control" placeholder="Name" readonly />
-            </div>
-            <div class="mb-3">
-              <label for="viewCustomerAddress" class="form-label">Address</label>
-              <input v-model="selectedCustomer.address" id="viewCustomerAddress" class="form-control" placeholder="Address" readonly />
-            </div>
-            <div class="mb-3">
-              <label for="viewCustomerEmail" class="form-label">Email</label>
-              <input v-model="selectedCustomer.email" id="viewCustomerEmail" class="form-control" placeholder="Email" readonly />
-            </div>
-            <div class="mb-3">
-              <label for="viewCustomerPhone" class="form-label">Phone</label>
-              <input v-model="selectedCustomer.phone" id="viewCustomerPhone" class="form-control" placeholder="Phone" readonly />
-            </div>
+            <p><strong>Name:</strong> {{ selectedCustomer.name }}</p>
+            <p><strong>Email:</strong> {{ selectedCustomer.email }}</p>
+            <p><strong>Phone:</strong> {{ selectedCustomer.phone }}</p>
+            <p><strong>Address:</strong> {{ selectedCustomer.address }}</p>
+            <p><strong>Status:</strong> {{ selectedCustomer.status }}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="clearSelection">Close</button>
@@ -113,7 +90,7 @@
       </div>
     </div>
 
-    <!-- Modal pour l'édition d'un client -->
+    <!-- Modal for editing a customer -->
     <div v-if="editingCustomer" class="modal show d-block" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -124,21 +101,25 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="mb-3">
-              <label for="editCustomerName" class="form-label">Name</label>
-              <input v-model="editingCustomer.name" id="editCustomerName" class="form-control" placeholder="Name" />
+            <div class="mb-2">
+              <label>Name</label>
+              <input v-model="editingCustomer.name" class="form-control" placeholder="Customer Name">
             </div>
-            <div class="mb-3">
-              <label for="editCustomerAddress" class="form-label">Address</label>
-              <input v-model="editingCustomer.address" id="editCustomerAddress" class="form-control" placeholder="Address" />
+            <div class="mb-2">
+              <label>Email</label>
+              <input v-model="editingCustomer.email" class="form-control" placeholder="Email">
             </div>
-            <div class="mb-3">
-              <label for="editCustomerEmail" class="form-label">Email</label>
-              <input v-model="editingCustomer.email" id="editCustomerEmail" class="form-control" placeholder="Email" />
+            <div class="mb-2">
+              <label>Phone</label>
+              <input v-model="editingCustomer.phone" class="form-control" placeholder="Phone">
             </div>
-            <div class="mb-3">
-              <label for="editCustomerPhone" class="form-label">Phone</label>
-              <input v-model="editingCustomer.phone" id="editCustomerPhone" class="form-control" placeholder="Phone" />
+            <div class="mb-2">
+              <label>Address</label>
+              <input v-model="editingCustomer.address" class="form-control" placeholder="Address">
+            </div>
+            <div class="mb-2">
+              <label>Status</label>
+              <input v-model="editingCustomer.status" class="form-control" placeholder="Status">
             </div>
           </div>
           <div class="modal-footer">
@@ -154,22 +135,35 @@
 <script setup>
 import { ref } from 'vue';
 
-// Déclaration des variables réactives
-const newCustomer = ref({ name: '', address: '', email: '', phone: '' });
+// Variables réactives
 const customers = ref([]);
+const newCustomer = ref({
+  name: '',
+  email: '',
+  phone: '',
+  address: '',
+  status: ''
+});
 const selectedCustomer = ref(null);
 const editingCustomer = ref(null);
+const showAddModal = ref(false);
 
-// Méthodes pour gérer les clients
-const confirmAddCustomer = () => {
+// Fonctions
+const openAddModal = () => {
+  showAddModal.value = true;
+};
+
+const closeAddModal = () => {
+  showAddModal.value = false;
+};
+
+const addCustomer = () => {
   if (newCustomer.value.name && newCustomer.value.email && newCustomer.value.phone) {
     customers.value.push({ ...newCustomer.value, id: Date.now() });
-    newCustomer.value = { name: '', address: '', email: '', phone: '' };
-    const modal = document.getElementById('addCustomerModal');
-    const modalInstance = bootstrap.Modal.getInstance(modal);
-    modalInstance.hide(); // Ferme la fenêtre modale après l'ajout
+    newCustomer.value = { name: '', email: '', phone: '', address: '', status: '' };
+    closeAddModal();
   } else {
-    alert('Please fill out all required fields.');
+    alert('Please fill in all required fields.');
   }
 };
 
@@ -186,16 +180,18 @@ const saveCustomer = () => {
   if (index !== -1) {
     customers.value[index] = editingCustomer.value;
     alert('Changes saved successfully!');
-    closeEditModal();
   }
+  closeEditModal();
 };
 
 const removeCustomer = (id) => {
-  customers.value = customers.value.filter(c => c.id !== id);
+  if (confirm('Are you sure you want to delete this customer?')) {
+    customers.value = customers.value.filter(customer => customer.id !== id);
+  }
 };
 
 const listCustomer = (customer) => {
-  selectedCustomer.value = { ...customer };
+  selectedCustomer.value = customer;
 };
 
 const clearSelection = () => {
@@ -204,5 +200,5 @@ const clearSelection = () => {
 </script>
 
 <style scoped>
-/* Styles personnalisés ici */
+/* Add any additional custom styles here */
 </style>
