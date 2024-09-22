@@ -74,31 +74,55 @@
       </div>
   
       <!-- Modal for listing a product -->
-      <div v-if="selectedProduct" class="modal show d-block" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">View Product</h5>
-              <button type="button" class="close" aria-label="Close" @click="clearSelection">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p><strong>Product Name:</strong> {{ selectedProduct.name }}</p>
-              <p><strong>Description:</strong> {{ selectedProduct.description }}</p>
-              <p><strong>Price:</strong> {{ selectedProduct.price }}</p>
-              <p><strong>Stock:</strong> {{ selectedProduct.stock }}</p>
-              <p><strong>Category:</strong> {{ selectedProduct.category }}</p>
-              <p><strong>Barcode:</strong> {{ selectedProduct.barcode }}</p>
-              <p><strong>Status:</strong> {{ selectedProduct.status }}</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="clearSelection">Close</button>
-            </div>
+      <!-- Modal for viewing a product -->
+<div v-if="selectedProduct" class="modal show d-block" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">View Product</h5>
+        <button type="button" class="close" aria-label="Close" @click="clearSelection">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <label>Product Name</label>
+            <input v-model="selectedProduct.name" class="form-control" placeholder="Product Name" readonly>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Description</label>
+            <input v-model="selectedProduct.description" class="form-control" placeholder="Description" readonly>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Price</label>
+            <input v-model="selectedProduct.price" class="form-control" placeholder="Price" readonly>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Stock</label>
+            <input v-model="selectedProduct.stock" class="form-control" placeholder="Stock" readonly>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Category</label>
+            <input v-model="selectedProduct.category" class="form-control" placeholder="Category" readonly>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Barcode</label>
+            <input v-model="selectedProduct.barcode" class="form-control" placeholder="Barcode" readonly>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Status</label>
+            <input v-model="selectedProduct.status" class="form-control" placeholder="Status" readonly>
           </div>
         </div>
       </div>
-  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" @click="clearSelection">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
       <!-- Modal for editing a product -->
       <!-- Modal for editing a product -->
 <div v-if="editingProduct" class="modal show d-block" tabindex="-1" role="dialog">
