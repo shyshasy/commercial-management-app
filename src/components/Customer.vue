@@ -68,16 +68,28 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">View customer</h5>
+            <h5 class="modal-title">Customer Details</h5>
             <button type="button" class="close" aria-label="Close" @click="clearSelection">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p><strong>Customer Name:</strong> {{ selectedCustomer.name }}</p>
-            <p><strong>Email:</strong> {{ selectedCustomer.email }}</p>
-            <p><strong>Phone:</strong> {{ selectedCustomer.phone }}</p>
-            <p><strong>Address:</strong> {{ selectedCustomer.address }}</p>
+            <div class="mb-2">
+              <label>Customer Name</label>
+              <input v-model="selectedCustomer.name" class="form-control" readonly>
+            </div>
+            <div class="mb-2">
+              <label>Email</label>
+              <input v-model="selectedCustomer.email" class="form-control" readonly>
+            </div>
+            <div class="mb-2">
+              <label>Phone</label>
+              <input v-model="selectedCustomer.phone" class="form-control" readonly>
+            </div>
+            <div class="mb-2">
+              <label>Address</label>
+              <input v-model="selectedCustomer.address" class="form-control" readonly>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="clearSelection">Close</button>
