@@ -1,43 +1,69 @@
 <template>
-    <div class="container mt-5">
-      <h2>Order Details</h2>
-      <div class="card mt-4">
-        <div class="card-body">
-          <p><strong>Date:</strong> {{ order.date }}</p>
-          <p><strong>Customer:</strong> {{ order.customer }}</p>
-          <p><strong>Delivery Address:</strong> {{ order.address }}</p>
-          <p><strong>Track Number:</strong> {{ order.trackNumber }}</p>
-          <p><strong>Status:</strong> {{ order.status }}</p>
-          <router-link to="/OrderList" class="btn btn-secondary mt-3">OrderList</router-link>
+  <div class="container mt-5">
+    <h2>View Order</h2>
+    <div class="card mt-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Date:</strong> {{ order.date }}</p>
+            <p><strong>Customer Name:</strong> {{ order.customerName }}</p>
+            <p><strong>Delivery Address:</strong> {{ order.deliveryAddress }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Track Number:</strong> {{ order.trackNumber }}</p>
+            <p><strong>Status:</strong> {{ order.status }}</p>
+          </div>
         </div>
+        
+        <h4 class="mt-4">Order Details</h4>
+        <table class="table mt-2">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(detail, index) in order.details" :key="index">
+              <td>{{ detail.product }}</td>
+              <td>{{ detail.quantity }}</td>
+              <td>{{ detail.price.toFixed(2) }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <router-link to="/OrderList" class="btn btn-secondary mt-3">Return to Order List</router-link>
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import { useRoute } from 'vue-router';
-  
-  const route = useRoute();
-  const order = ref({});
-  
-  const orders = ref([
-    { date: '07/25/2024', customer: 'John Doe', address: '123 Main St', trackNumber: 'TN001', status: 'Shipped' },
-    { date: '07/26/2024', customer: 'Jane Smith', address: '456 Oak St', trackNumber: 'TN002', status: 'Delivered' },
-  ]);
-  
-  onMounted(() => {
-    const trackNumber = route.params.trackNumber;
-    const selectedOrder = orders.value.find((o) => o.trackNumber === trackNumber);
-    if (selectedOrder) {
-      order.value = { ...selectedOrder };
-    } else {
-      alert('Order not found');
-    }
-  });
-  </script>
-  
-  <style scoped>
-  /* Add your styles here */
-  </style>
-  
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const order = ref({
+  details: []
+});
+
+const orders = ref([
+  { date: '07/25/2024', customerName: 'John Doe', deliveryAddress: '123 Main St', trackNumber: 'TN001', status: 'Shipped', details: [{ product: 'Item A', quantity: 2, price: 15.00 }] },
+  { date: '07/26/2024', customerName: 'Jane Smith', deliveryAddress: '456 Oak St', trackNumber: 'TN002', status: 'Delivered', details: [{ product: 'Item B', quantity: 1, price: 30.00 }] },
+]);
+
+onMounted(() => {
+  const trackNumber = route.params.trackNumber;
+  const selectedOrder = orders.value.find((o) => o.trackNumber === trackNumber);
+  if (selectedOrder) {
+    order.value = { ...selectedOrder };
+  } else {
+    alert('Order not found');
+  }
+});
+</script>
+
+<style scoped>
+/* Add your styles here */
+</style>
