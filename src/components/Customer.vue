@@ -50,7 +50,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <input v-model="newCustomer.name" class="form-control mb-2" placeholder="Name">
+            <input v-model="newCustomer.name" class="form-control mb-2" placeholder="Customer Name">
             <input v-model="newCustomer.email" class="form-control mb-2" placeholder="Email">
             <input v-model="newCustomer.phone" class="form-control mb-2" placeholder="Phone">
             <input v-model="newCustomer.address" class="form-control mb-2" placeholder="Address">
