@@ -68,7 +68,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Customer Details</h5>
+            <h5 class="modal-title">View customer</h5>
             <button type="button" class="close" aria-label="Close" @click="clearSelection">
               <span aria-hidden="true">&times;</span>
             </button>
