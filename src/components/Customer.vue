@@ -74,7 +74,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p><strong>Name:</strong> {{ selectedCustomer.name }}</p>
+            <p><strong>Customer Name:</strong> {{ selectedCustomer.name }}</p>
             <p><strong>Email:</strong> {{ selectedCustomer.email }}</p>
             <p><strong>Phone:</strong> {{ selectedCustomer.phone }}</p>
             <p><strong>Address:</strong> {{ selectedCustomer.address }}</p>
@@ -98,7 +98,7 @@
           </div>
           <div class="modal-body">
             <div class="mb-2">
-              <label>Name</label>
+              <label>Customer Name</label>
               <input v-model="editingCustomer.name" class="form-control" placeholder="Name">
             </div>
             <div class="mb-2">

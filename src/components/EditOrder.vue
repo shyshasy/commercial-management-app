@@ -25,7 +25,7 @@
           </div>
           <div class="mt-3">
             <button class="btn btn-primary" @click="saveOrder">Save Changes</button>
-            <router-link to="/orders" class="btn btn-secondary ms-3">Cancel</router-link>
+            <router-link to="/OrderList" class="btn btn-secondary ms-3">Cancel</router-link>
           </div>
         </div>
       </div>

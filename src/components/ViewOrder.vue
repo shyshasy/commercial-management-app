@@ -8,7 +8,7 @@
           <p><strong>Delivery Address:</strong> {{ order.address }}</p>
           <p><strong>Track Number:</strong> {{ order.trackNumber }}</p>
           <p><strong>Status:</strong> {{ order.status }}</p>
-          <router-link to="/orders" class="btn btn-secondary mt-3">Back to Orders</router-link>
+          <router-link to="/OrderList" class="btn btn-secondary mt-3">OrderList</router-link>
         </div>
       </div>
     </div>

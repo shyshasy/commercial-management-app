@@ -84,7 +84,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <p><strong>Name:</strong> {{ selectedProduct.name }}</p>
+              <p><strong>Product Name:</strong> {{ selectedProduct.name }}</p>
               <p><strong>Description:</strong> {{ selectedProduct.description }}</p>
               <p><strong>Price:</strong> {{ selectedProduct.price }}</p>
               <p><strong>Stock:</strong> {{ selectedProduct.stock }}</p>
@@ -100,52 +100,56 @@
       </div>
   
       <!-- Modal for editing a product -->
-      <div v-if="editingProduct" class="modal show d-block" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Edit Product</h5>
-              <button type="button" class="close" aria-label="Close" @click="closeEditModal">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="mb-2">
-                <label>Name</label>
-                <input v-model="editingProduct.name" class="form-control" placeholder="Product Name">
-              </div>
-              <div class="mb-2">
-                <label>Description</label>
-                <input v-model="editingProduct.description" class="form-control" placeholder="Description">
-              </div>
-              <div class="mb-2">
-                <label>Price</label>
-                <input v-model="editingProduct.price" class="form-control" placeholder="Price">
-              </div>
-              <div class="mb-2">
-                <label>Stock</label>
-                <input v-model="editingProduct.stock" class="form-control" placeholder="Stock">
-              </div>
-              <div class="mb-2">
-                <label>Category</label>
-                <input v-model="editingProduct.category" class="form-control" placeholder="Category">
-              </div>
-              <div class="mb-2">
-                <label>Barcode</label>
-                <input v-model="editingProduct.barcode" class="form-control" placeholder="Barcode">
-              </div>
-              <div class="mb-2">
-                <label>Status</label>
-                <input v-model="editingProduct.status" class="form-control" placeholder="Status">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="closeEditModal">Close</button>
-              <button type="button" class="btn btn-primary" @click="saveProduct">Save Changes</button>
-            </div>
+      <!-- Modal for editing a product -->
+<div v-if="editingProduct" class="modal show d-block" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Product</h5>
+        <button type="button" class="close" aria-label="Close" @click="closeEditModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <label>Product Name</label>
+            <input v-model="editingProduct.name" class="form-control" placeholder="Product Name">
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Description</label>
+            <input v-model="editingProduct.description" class="form-control" placeholder="Description">
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Price</label>
+            <input v-model="editingProduct.price" class="form-control" placeholder="Price">
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Stock</label>
+            <input v-model="editingProduct.stock" class="form-control" placeholder="Stock">
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Category</label>
+            <input v-model="editingProduct.category" class="form-control" placeholder="Category">
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Barcode</label>
+            <input v-model="editingProduct.barcode" class="form-control" placeholder="Barcode">
+          </div>
+          <div class="col-md-6 mb-2">
+            <label>Status</label>
+            <input v-model="editingProduct.status" class="form-control" placeholder="Status">
           </div>
         </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" @click="closeEditModal">Close</button>
+        <button type="button" class="btn btn-primary" @click="saveProduct">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   </template>
   
