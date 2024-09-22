@@ -29,12 +29,15 @@
           <td>{{ order.trackNumber }}</td>
           <td>{{ order.status }}</td>
           <td>
-            <button class="btn btn-info btn-sm me-2" @click="viewOrder(order)">
-              <i class="fas fa-eye"></i>
-            </button>
-            <button class="btn btn-warning btn-sm me-2" @click="editOrder(order)">
-              <i class="fas fa-edit"></i>
-            </button>
+            <router-link :to="`/OrderList/view/${order.trackNumber}`" class="btn btn-info btn-sm me-2">
+  <i class="fas fa-eye"></i>
+</router-link>
+<router-link :to="`/OrderList/edit/${order.trackNumber}`" class="btn btn-warning btn-sm me-2">
+  <i class="fas fa-edit"></i>
+</router-link>
+
+
+
             <button class="btn btn-danger btn-sm" @click="deleteOrder(index)">
               <i class="fas fa-trash-alt"></i>
             </button>
