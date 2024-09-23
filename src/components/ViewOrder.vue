@@ -1,17 +1,32 @@
 <template>
-  <div class="container mt-5">
+  <div class="container mt-5 position-relative">
     <h2>View Order</h2>
     <div class="card mt-4">
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <p><strong>Date:</strong> {{ order.date }}</p>
-            <p><strong>Customer Name:</strong> {{ order.customerName }}</p>
-            <p><strong>Delivery Address:</strong> {{ order.deliveryAddress }}</p>
+            <div class="form-group mb-3">
+              <label>Date</label>
+              <input type="text" class="form-control" v-model="order.date" readonly>
+            </div>
+            <div class="form-group mb-3">
+              <label>Customer Name</label>
+              <input type="text" class="form-control" v-model="order.customerName" readonly>
+            </div>
+            <div class="form-group mb-3">
+              <label>Delivery Address</label>
+              <input type="text" class="form-control" v-model="order.deliveryAddress" readonly>
+            </div>
           </div>
           <div class="col-md-6">
-            <p><strong>Track Number:</strong> {{ order.trackNumber }}</p>
-            <p><strong>Status:</strong> {{ order.status }}</p>
+            <div class="form-group mb-3">
+              <label>Track Number</label>
+              <input type="text" class="form-control" v-model="order.trackNumber" readonly>
+            </div>
+            <div class="form-group mb-3">
+              <label>Status</label>
+              <input type="text" class="form-control" v-model="order.status" readonly>
+            </div>
           </div>
         </div>
         
@@ -65,5 +80,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Add your styles here */
+.container {
+    margin-top: 20px;
+    position: relative;
+}
+
+/* Style pour les champs en readonly pour éviter la surbrillance */
+input[readonly] {
+    background-color: #f8f9fa; /* Couleur de fond similaire à celle des champs */
+    color: #495057; /* Couleur du texte */
+    border: 1px solid #ced4da; /* Bordure */
+    cursor: not-allowed; /* Curseur non interactif */
+}
 </style>
