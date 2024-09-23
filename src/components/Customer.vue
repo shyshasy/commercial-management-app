@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h2>Customer Management</h2>
+    <h2>List of Customerst</h2>
 
     <!-- Button to open Add Customer Modal -->
     <button class="btn btn-success mb-3" @click="openAddModal">
