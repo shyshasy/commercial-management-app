@@ -1,5 +1,8 @@
 <template>
     <div class="container mt-5 position-relative">
+      <div class="d-flex justify-content-start">
+      <h2>Add Order </h2> 
+    </div>
       <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link active" href="#">Orders</a>
