@@ -219,11 +219,36 @@
   };
   </script>
 
-  <style scoped>
-  .custom-table {
-    border: 2px solid #007bff; 
-    border-radius: 10px; 
-    overflow: hidden; 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
-  }
-  </style>
+<style scoped>
+.custom-table {
+  border: 2px solid #007bff; 
+  border-radius: 10px; 
+  overflow: hidden; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+/* Close button style */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px; /* Moves the close icon to the right */
+  background-color: transparent;
+  border: none;
+  font-size: 24px; /* Increases the size of the icon */
+  cursor: pointer;
+  color: #ff0000; /* Changes the icon color */
+  padding: 5px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.close:hover {
+  transform: scale(1.2); /* Slightly enlarges the icon on hover */
+  color: #d9534f; /* Changes color on hover */
+}
+
+/* Modal content styling */
+.modal-content {
+  position: relative; /* Necessary for the absolute positioning of the close icon */
+  padding: 20px;
+}
+</style>

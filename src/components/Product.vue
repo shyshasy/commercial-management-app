@@ -309,6 +309,8 @@
       border-radius: 10px; 
       overflow: hidden; 
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+      
+      
     }
     </style>
     
