@@ -87,9 +87,16 @@
               <div class="form-control-plaintext border rounded p-2 bg-light">{{ selectedCustomer.phone }}</div>
             </div>
             <div class="mb-2">
-              <label>Address</label>
-              <div class="form-control-plaintext border rounded p-2 bg-light">{{ selectedCustomer.address }}</div>
-            </div>
+            <label for="address">Address</label>
+            <textarea 
+              id="address" 
+              class="form-control border rounded p-2 bg-light" 
+              rows="3" 
+              v-model="selectedCustomer.address" 
+              readonly
+            ></textarea>
+          </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="clearSelection">Close</button>
