@@ -1,5 +1,6 @@
 <template>
     <div class="container mt-5 position-relative">
+      <h1 class="mb-4">Edit Order</h1> 
       <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link active" href="#">Edit Order</a>
