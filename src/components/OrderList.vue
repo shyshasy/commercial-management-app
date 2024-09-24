@@ -29,6 +29,7 @@
           <td>{{ order.trackNumber }}</td>
           <td>{{ order.status }}</td>
           <td>
+            
             <router-link :to="`/OrderList/view/${order.trackNumber}`" class="btn btn-info btn-sm me-2">
   <i class="fas fa-eye"></i>
 </router-link>

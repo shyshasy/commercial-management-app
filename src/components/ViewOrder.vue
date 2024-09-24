@@ -85,11 +85,11 @@ onMounted(() => {
     position: relative;
 }
 
-/* Style pour les champs en readonly pour éviter la surbrillance */
+
 input[readonly] {
-    background-color: #f8f9fa; /* Couleur de fond similaire à celle des champs */
-    color: #495057; /* Couleur du texte */
-    border: 1px solid #ced4da; /* Bordure */
-    cursor: not-allowed; /* Curseur non interactif */
+    background-color: #f8f9fa; 
+    color: #495057;
+    border: 1px solid #ced4da; 
+    cursor: not-allowed; 
 }
 </style>

@@ -8,22 +8,26 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto"> 
             <li class="nav-item">
-              <router-link class="nav-link" to="/" active-class="active">
+              <router-link class="nav-link" to="/" exact active-class="active">
                 <i class="fas fa-home"></i> Home
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/customers" active-class="active">
+              <router-link class="nav-link" to="/customers" exact active-class="active">
                 <i class="fas fa-users"></i> Customer
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/products" active-class="active">
+              <router-link class="nav-link" to="/products" exact active-class="active">
                 <i class="fas fa-box"></i> Product
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/OrderList" active-class="active">
+              <router-link 
+                class="nav-link" 
+                to="/OrderList" 
+                :class="{ active: $route.path === '/OrderList' || $route.path.includes('/Order') }"
+              >
                 <i class="fas fa-shopping-cart"></i> Order
               </router-link>
             </li>
