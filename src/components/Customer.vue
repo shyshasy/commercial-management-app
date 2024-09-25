@@ -97,6 +97,7 @@
               rows="3" 
               v-model="selectedCustomer.address" 
               readonly
+              disabled
             ></textarea>
           </div>
 

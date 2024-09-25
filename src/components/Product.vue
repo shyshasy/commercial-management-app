@@ -117,7 +117,7 @@
                 </div>
                   <div class="col-md-6 mb-2">
                 <label>Description</label>
-                <textarea v-model="newProduct.description" class="form-control" placeholder="Description" rows="3"></textarea>
+                <textarea v-model="newProduct.description" disabled  class="form-control" placeholder="Description" rows="3"></textarea>
               </div>
 
                 <div class="col-md-6 mb-2">
