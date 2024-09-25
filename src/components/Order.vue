@@ -9,7 +9,7 @@
         </li>
       </ul>
       <div class="form-buttons">
-        <router-link to="/OrderList" class="btn btn-secondary me-2">Return to OrderList</router-link>
+        <router-link to="/OrderList" class="btn btn-secondary me-2">Return to Order List</router-link>
         <button type="submit" class="btn btn-success" @click="submitOrder">Submit</button>
       </div>
     
