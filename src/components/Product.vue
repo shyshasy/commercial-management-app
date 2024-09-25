@@ -71,11 +71,11 @@
 
                 <div class="col-md-6 mb-2">
                   <label>Price</label>
-                  <input v-model="newProduct.price" class="form-control" placeholder="Price">
+                  <input v-model="newProduct.price" class="form-control" placeholder="Price" type="number">
                 </div>
                 <div class="col-md-6 mb-2">
                   <label>Stock</label>
-                  <input v-model="newProduct.stock" class="form-control" placeholder="Stock">
+                  <input v-model="newProduct.stock" class="form-control" placeholder="Stock" type="nu">
                 </div>
                 <div class="col-md-6 mb-2">
                   <label>Category</label>
@@ -86,8 +86,12 @@
                   <input v-model="newProduct.barcode" class="form-control" placeholder="Barcode">
                 </div>
                 <div class="col-md-6 mb-2">
-                  <label>Status</label>
-                  <input v-model="newProduct.status" class="form-control" placeholder="Status">
+                  <label for="status">Status</label>
+                <select v-model="newProduct.category" class="form-control" required>
+                  <option value="" disabled>Select Status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
                 </div>
               </div>
             </div>
@@ -193,8 +197,7 @@
                   <option value="Active">Active</option>
                   <option value="Inactive">Inactive</option>
                 </select>
-                  <!-- <label>Status</label>
-                  <input v-model="editingProduct.status" class="form-control" placeholder="Status"> -->
+                  
                 </div>
               </div>
             </div>
