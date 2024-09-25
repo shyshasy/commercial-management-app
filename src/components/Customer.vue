@@ -19,6 +19,9 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-if="customers.length === 0">
+          <td colspan="5" class="text-center">No customers available</td>
+        </tr>
         <tr v-for="customer in customers" :key="customer.id">
           <td>{{ customer.name }}</td>
           <td>{{ customer.email }}</td>

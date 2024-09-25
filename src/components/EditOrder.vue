@@ -2,7 +2,7 @@
   <div class="container mt-5 position-relative">
     <h1 class="mb-4">Edit Order</h1> 
     <div class="form-buttons">
-      <router-link to="/OrderList" class="btn btn-secondary me-2">Return to Order List</router-link>
+      <router-link to="/OrderList" class="btn btn-secondary me-2">Orders List</router-link>
       <button type="submit" class="btn btn-success" @click="saveOrder">Save Changes</button>
     </div>
     

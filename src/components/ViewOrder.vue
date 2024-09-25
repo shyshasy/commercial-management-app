@@ -1,6 +1,10 @@
 <template>
   <div class="container mt-5 position-relative">
     <h2>View Order</h2>
+    <div class="d-flex justify-content-end">
+      <router-link to="/OrderList" class="btn btn-secondary mt-3">Orders List</router-link>
+    </div>
+   
     <div class="card mt-4">
       <div class="card-body">
         <div class="row">
@@ -48,7 +52,7 @@
           </tbody>
         </table>
 
-        <router-link to="/OrderList" class="btn btn-secondary mt-3">Return to Order List</router-link>
+        <!-- <router-link to="/OrderList" class="btn btn-secondary mt-3">Orders List</router-link> -->
       </div>
     </div>
   </div>

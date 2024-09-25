@@ -22,6 +22,9 @@
           </tr>
         </thead>
         <tbody>
+          <tr v-if="products.length === 0">
+          <td colspan="8" class="text-center">No products available</td>
+        </tr>
           <tr v-for="product in products" :key="product.id">
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
@@ -169,11 +172,11 @@
 
                 <div class="col-md-6 mb-2">
                   <label>Price</label>
-                  <input v-model="editingProduct.price" class="form-control" placeholder="Price">
+                  <input v-model="editingProduct.price" class="form-control" placeholder="Price" type="number">
                 </div>
                 <div class="col-md-6 mb-2">
                   <label>Stock</label>
-                  <input v-model="editingProduct.stock" class="form-control" placeholder="Stock">
+                  <input v-model="editingProduct.stock" class="form-control" placeholder="Stock" type="number">
                 </div>
                 <div class="col-md-6 mb-2">
                   <label>Category</label>
@@ -184,8 +187,14 @@
                   <input v-model="editingProduct.barcode" class="form-control" placeholder="Barcode">
                 </div>
                 <div class="col-md-6 mb-2">
-                  <label>Status</label>
-                  <input v-model="editingProduct.status" class="form-control" placeholder="Status">
+                  <label for="status">Status</label>
+                <select v-model="editingProduct.category" class="form-select" required>
+                  <option value="" disabled>Select Status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+                  <!-- <label>Status</label>
+                  <input v-model="editingProduct.status" class="form-control" placeholder="Status"> -->
                 </div>
               </div>
             </div>

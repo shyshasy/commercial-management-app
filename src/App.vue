@@ -19,7 +19,7 @@
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/products" exact active-class="active">
-                <i class="fas fa-box"></i> Product
+                <i class="fas fa-box-open"></i> Product
               </router-link>
             </li>
             <li class="nav-item">
