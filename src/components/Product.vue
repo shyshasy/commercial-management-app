@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-md-6 mb-2">
                   <label>Stock</label>
-                  <input v-model="newProduct.stock" class="form-control" placeholder="Stock" type="nu">
+                  <input v-model="newProduct.stock" class="form-control" placeholder="Stock" type="number">
                 </div>
                 <div class="col-md-6 mb-2">
                   <label>Category</label>
